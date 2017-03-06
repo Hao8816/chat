@@ -1,6 +1,6 @@
 // 配置页面路由 'chat'
-var app_router = angular.module( 'chat' , ['ngRoute']).run(function() {
-
+var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope) {
+    $rootScope.screenH = document.documentElement.clientHeight;
 });
 
 // 配置页面
@@ -57,27 +57,27 @@ app_router.directive('ngEnter', function () {
 });
 
 angular.module('chat').controller(
-    'welcomePageController',
-    function welcomePageController($scope, $rootScope, $http, Token, Toast) {
-        $rootScope.nav_index = 0;
+    'recentlyPageController',
+    function recentlyPageController($scope, $rootScope, $http) {
 
+        $rootScope.link_index = 1;
 
 
     }
 );
 
 angular.module('chat').controller(
-    'worksPageController',
-    function worksPageController($scope, $rootScope, $http, Token) {
-        $rootScope.nav_index = 1;
+    'contactsPageController',
+    function contactsPageController($scope, $rootScope, $http) {
+        $rootScope.link_index = 2;
 
     }
 );
 
 angular.module('chat').controller(
-    'aboutPageController',
-    function aboutPageController($scope, $rootScope, $http, Token) {
-        $rootScope.nav_index = 2;
+    'settingsPageController',
+    function settingsPageController($scope, $rootScope, $http) {
+        $rootScope.link_index = 3;
 
     }
 );

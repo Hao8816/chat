@@ -1,0 +1,85 @@
+body{
+    background-color: #fff;
+}
+.chat_wrapper{
+    display: flex;
+}
+.chat_wrapper .left_wrapper{
+    background-color: #1c232b;
+    color: #fff;
+    text-align: center;
+    width: 80px;
+}
+.avatar{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.avatar .image{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.links{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.links .link-item{
+    text-align: center;
+    padding: 10px 0px;
+}
+.links .link-item a{
+    color: #4d5d6c;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0px;
+}
+.links .link-item.active a{
+    color: #fff;
+    background-color: #171e26;
+}
+
+
+.icon-chat{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("imgs/chat.png");
+    background-position: 0px 0px;
+    background-size: contain;
+}
+.icon-contacts{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("imgs/contacts.png");
+    background-position: 0px 0px;
+    background-size: contain;
+}
+.icon-settings{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("imgs/settings.png");
+    background-position: 0px 0px;
+    background-size: contain;
+}
+
+
+.links .link-item.active .icon-chat{
+    background-image: url("imgs/chat_active.png");
+}
+.links .link-item.active .icon-contacts{
+    background-image: url("imgs/contacts_active.png");
+}
+.links .link-item.active .icon-settings{
+    background-image: url("imgs/settings_active.png");
+}
+.title-wrapper{
+    border-bottom: 1px solid #ebf6fb;
+    color: #2d4049;
+    padding: 20px;
+    font-weight: bold
+}

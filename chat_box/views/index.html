@@ -3,19 +3,42 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>聊天</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<h1>聊天页面</h1>
-<div>
-    <ul>
-        <li><a href="#/recently/">最近聊天</a></li>
-        <li><a href="#/contacts/">联系人</a></li>
-        <li><a href="#/settings/">设置</a></li>
-    </ul>
-    <div ng-view="">
-
+<div class="chat_wrapper">
+    <div class="left_wrapper" style="height: {{screenH}}px">
+        <div class="avatar">
+            <img class="image" src="../images/avatar.jpeg" alt="">
+            <div>vaster</div>
+        </div>
+        <ul class="links">
+            <li class="link-item {{link_index==1?'active':''}}">
+                <a href="#/recently/">
+                    <i class="icon-chat"></i>
+                    <div>消息</div>
+                </a>
+            </li>
+            <li class="link-item {{link_index==2?'active':''}}">
+                <a href="#/contacts/">
+                    <i class="icon-contacts"></i>
+                    <div>联系人</div>
+                </a>
+            </li>
+            <li class="link-item {{link_index==3?'active':''}}">
+                <a href="#/settings/">
+                    <i class="icon-settings"></i>
+                    <div>设置</div>
+                </a>
+            </li>
+        </ul>
     </div>
+    <div class="right_wrapper">
+        <div ng-view="">
 
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="../angularjs/angular.min.js"></script>
 <script type="text/javascript" src="../angularjs/angular-route.min.js"></script>
@@ -24,9 +47,11 @@
 <script type="text/javascript">
     var socket = io('http://127.0.0.1:3000');
     socket.on('connect', function(){
-        alert("dddd")
+//        alert("dddd")
     });
-    socket.on('event', function(data){});
+    socket.on('event', function(data){
+        console.log(data)
+    });
     socket.on('disconnect', function(){});
 
 </script>
