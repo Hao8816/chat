@@ -14,15 +14,33 @@
                     <div class="name">{{contact.name}}</div>
                     <div>
                         <span class="message">{{contact.message}}</span>
-                        <span class="time">{{contact.time}}</span>
+                        <!--<span class="time">{{contact.time}}</span>-->
                     </div>
                 </div>
             </li>
         </ul>
     </div>
 </div>
-<div class="message-wrapper">
-    <div style="width: 800px;background-color: #EFF4F8;height: {{screenH}}px;box-shadow:-1px 1px 5px 2px #D6E0E4">
+<div class="blog-wrapper">
+    <div style="width: 700px;background-color: #EFF4F8;height: {{screenH}}px;">
+        <div class="blog-item" style="text-align: center;padding-top: 20px">
+            <img style="border-radius: 100%" width="120" height="120" class="image" src="{{current.avatar}}" alt=""/>
+            <div class="name" style="font-size: 18px;padding: 10px">{{current.name}}</div>
+            <div class="name" style="font-size: 18px;padding: 10px">{{current.desc}}</div>
+        </div>
 
+        <!--<div class="message-title">-->
+            <!--<img class="image" src="{{current.avatar}}" alt=""/>-->
+            <!--<div class="name">{{current.name}}</div>-->
+        <!--</div>-->
+        <!--<div class="message-content" style="height: {{screenH-132}}px">-->
+
+        <!--</div>-->
+        <!--<div class="message-footer">-->
+            <!--<input class="message-input" placeholder="输入消息..." type="text">-->
+            <!--<div class="send-btn">-->
+                <!--<i class="icon-send"></i>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </div>

@@ -79,6 +79,15 @@ body{
     float: left;
 }
 
+.icon-send{
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-image: url("imgs/send.png");
+    background-position: 0px 0px;
+    background-size: contain;
+}
+
 
 .links .link-item.active .icon-chat{
     background-image: url("imgs/chat_active.png");
@@ -154,4 +163,50 @@ body{
     outline: none;
     padding: 15px 0px;
     font-size: 14px;
+}
+
+.message-title{
+    background-color: #fff;
+    padding: 0px 20px 0px 60px;
+    position: relative;
+    height: 68px;
+}
+.message-title .image{
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-radius: 100%;
+    left: 20px;
+    top: 12px;
+}
+.message-title .name{
+    padding: 10px;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.message-footer{
+    position: relative;
+}
+.message-footer .message-input{
+    width: 96%;
+    padding: 10px 2%;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    height: 44px;
+    font-size: 14px;
+}
+.message-footer .send-btn{
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    background-color: #3d98d1;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 100%;
+    line-height: 55px;
+    cursor: pointer;
 }

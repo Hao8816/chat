@@ -1,2 +1,36 @@
-<div class="title-wrapper">最近聊天</div>
-       
+<div class="contacts-wrapper">
+    <div class="contact-list" style="width: 280px;border-right: 1px solid #ddd;height: {{screenH}}px">
+        <div class="title-wrapper">最近聊天</div>
+        <ul class="contact-items">
+            <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
+                <div class="avatar-wrapper">
+                    <img class="image" src="{{contact.avatar}}" alt=""/>
+                </div>
+                <div>
+                    <div class="name">{{contact.name}}</div>
+                    <div>
+                        <span class="message">{{contact.message}}</span>
+                        <span class="time">{{contact.time}}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="message-wrapper">
+    <div style="width: 700px;background-color: #EFF4F8;height: {{screenH}}px;box-shadow:-1px 1px 5px 2px #D6E0E4">
+        <div class="message-title">
+            <img class="image" src="{{current.avatar}}" alt=""/>
+            <div class="name">{{current.name}}</div>
+        </div>
+        <div class="message-content" style="height: {{screenH-132}}px">
+
+        </div>
+        <div class="message-footer">
+            <input class="message-input" placeholder="输入消息..." type="text">
+            <div class="send-btn">
+                <i class="icon-send"></i>
+            </div>
+        </div>
+    </div>
+</div>
