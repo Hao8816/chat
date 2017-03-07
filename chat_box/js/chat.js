@@ -56,6 +56,7 @@ app_router.directive('ngEnter', function () {
     };
 });
 
+
 angular.module('chat').controller(
     'recentlyPageController',
     function recentlyPageController($scope, $rootScope, $http) {
@@ -70,6 +71,7 @@ angular.module('chat').controller(
     'contactsPageController',
     function contactsPageController($scope, $rootScope, $http) {
         $rootScope.link_index = 2;
+        $scope.contact_index = 2;
         var contacts = [
             {
                 'name':'Vaster',
@@ -83,7 +85,7 @@ angular.module('chat').controller(
                 'time':'10:37'
             },{
                 'name':'Jack',
-                'avatar':'http://img3.duitang.com/uploads/item/201507/03/20150703144048_fCSL2.thumb.224_0.jpeg',
+                'avatar':'http://img.cnjiayu.net/3211573049-3310678237-21-0.jpg',
                 'message':'Jack is a good boy.',
                 'time':'09:15'
             },{
@@ -92,11 +94,12 @@ angular.module('chat').controller(
                 'message':'Smite every day!',
                 'time':'08:22'
             }
-        ]
+        ];
         $scope.contacts = contacts;
 
-        $scope.contact_index = 2
-
+        $scope.chatWith = function(obj){
+            $scope.contact_index = obj.$index;
+        };
     }
 );
 

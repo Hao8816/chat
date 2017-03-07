@@ -6,7 +6,7 @@
             <input class="search-input" type="text" placeholder="搜索好友"/>
         </div>
         <ul class="contact-items">
-            <li class="contact-item {{contact_index==$index?'active':''}}" ng-repeat="contact in contacts">
+            <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
                 <div class="avatar-wrapper">
                     <img class="image" src="{{contact.avatar}}" alt=""/>
                 </div>
@@ -19,5 +19,10 @@
                 </div>
             </li>
         </ul>
+    </div>
+</div>
+<div class="message-wrapper">
+    <div style="width: 800px;background-color: #EFF4F8;height: {{screenH}}px;box-shadow:-1px 1px 5px 2px #D6E0E4">
+
     </div>
 </div>

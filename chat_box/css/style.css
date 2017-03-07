@@ -4,6 +4,9 @@ body{
 .chat_wrapper{
     display: flex;
 }
+.page-wrapper{
+    display: flex;
+}
 .chat_wrapper .left_wrapper{
     background-color: #1c232b;
     color: #fff;
