@@ -70,6 +70,32 @@ angular.module('chat').controller(
     'contactsPageController',
     function contactsPageController($scope, $rootScope, $http) {
         $rootScope.link_index = 2;
+        var contacts = [
+            {
+                'name':'Vaster',
+                'avatar':'http://img1.2345.com/duoteimg/qqTxImg/2/78d4ee9b26cf134b72e6204fba2415f6.jpg',
+                'message':'Hi, i am new here.',
+                'time':'11:21'
+            },{
+                'name':'Tom',
+                'avatar':'http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg',
+                'message':'No news is good news.',
+                'time':'10:37'
+            },{
+                'name':'Jack',
+                'avatar':'http://img3.duitang.com/uploads/item/201507/03/20150703144048_fCSL2.thumb.224_0.jpeg',
+                'message':'Jack is a good boy.',
+                'time':'09:15'
+            },{
+                'name':'Smite',
+                'avatar':'http://img0w.pconline.com.cn/pconline/1312/16/4009776_16-010002_818.jpg',
+                'message':'Smite every day!',
+                'time':'08:22'
+            }
+        ]
+        $scope.contacts = contacts;
+
+        $scope.contact_index = 2
 
     }
 );

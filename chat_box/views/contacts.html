@@ -1,11 +1,23 @@
 <div class="contacts-wrapper">
-    <div class="contact-list" style="width: 220px">
+    <div class="contact-list" style="width: 280px;border-right: 1px solid #ddd;height: {{screenH}}px">
         <div class="title-wrapper">好友列表</div>
-        <ul>
-            <li><a href="">1212</a></li>
+        <div class="search-wrapper">
+            <i class="icon-search"></i>
+            <input class="search-input" type="text" placeholder="搜索好友"/>
+        </div>
+        <ul class="contact-items">
+            <li class="contact-item {{contact_index==$index?'active':''}}" ng-repeat="contact in contacts">
+                <div class="avatar-wrapper">
+                    <img class="image" src="{{contact.avatar}}" alt=""/>
+                </div>
+                <div>
+                    <div class="name">{{contact.name}}</div>
+                    <div>
+                        <span class="message">{{contact.message}}</span>
+                        <span class="time">{{contact.time}}</span>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
-
-
-
 </div>

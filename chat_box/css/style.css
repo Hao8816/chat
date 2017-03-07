@@ -41,7 +41,6 @@ body{
     background-color: #171e26;
 }
 
-
 .icon-chat{
     display: inline-block;
     width: 30px;
@@ -66,6 +65,16 @@ body{
     background-position: 0px 0px;
     background-size: contain;
 }
+.icon-search{
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-image: url("imgs/search.png");
+    background-position: 0px 0px;
+    background-size: contain;
+    margin: 12px 5px 12px 10px;
+    float: left;
+}
 
 
 .links .link-item.active .icon-chat{
@@ -80,6 +89,66 @@ body{
 .title-wrapper{
     border-bottom: 1px solid #ebf6fb;
     color: #2d4049;
-    padding: 20px;
-    font-weight: bold
+    padding: 25px 15px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.contact-items{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.contact-item{
+    position: relative;
+    padding: 15px 10px 15px 60px;
+    border-bottom: 1px solid #ebf6fb;
+    border-left: 3px solid #fff;
+    cursor: pointer;
+}
+
+.contact-item .avatar-wrapper{
+    position: absolute;
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    left: 10px;
+    top: 10px;
+
+}
+.contact-item .avatar-wrapper .image{
+    width: 44px;
+    height: 44px;
+    border-radius: 100%;
+}
+.contact-item .name{
+    color: #37464E;
+    font-size: 15px;
+}
+.contact-item .message{
+    color: #B3C1C6;
+    font-size: 13px;
+    padding: 4px 0px;
+    display: inline-block;
+}
+.contact-item .time{
+    color: #B3C1C6;
+    font-size: 11px;
+    float: right;
+    margin: 8px 0px;
+}
+.contact-item.active{
+    background-color: #EFF4F8;
+    border-left: 3px solid #3D98D1;
+}
+.search-wrapper{
+    border-bottom: 1px solid #ebf6fb;
+}
+.search-input{
+    border: none;
+    box-shadow: none;
+    outline: none;
+    padding: 15px 0px;
+    font-size: 14px;
 }
