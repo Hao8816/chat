@@ -2,11 +2,19 @@
 var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket) {
     $rootScope.screenH = document.documentElement.clientHeight;
     socket.on('connect',function(){
-        socket.emit('login',{'name':'chenhao'})
+        // 连接成功
+        console.log('连接消息服务器成功');
     });
+
+    $rootScope.login = function(){
+        var username = $rootScope.username;
+        socket.emit('login',{'name': username})
+    };
 
     socket.on('login', function(data){
         console.log("登录成功",data);
+        $rootScope.login_status = true;
+
 
         $rootScope.Uid = '12';
     });

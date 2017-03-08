@@ -16,8 +16,9 @@
     "hiredis":"~0.3.0",
     "mysql":"~2.6.0",
     "socket.io":"~1.7.0",
-    "async":"~0.9.0",
-    "sha1":"~1.1.0"
+    "async":"~2.1.4",
+    "sha1":"~1.1.0",
+    "mongoose":"~4.8.6"
   },
   "author": "Vaster Chen",
   "license": "ISC"

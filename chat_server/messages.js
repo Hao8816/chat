@@ -1,3 +1,4 @@
+var DB = require('./models.js');
 /*
 *  不同类型的消息路由功能
 *
@@ -14,6 +15,10 @@ var MESSAGES = {
 // 登录响应  LOGIN_RES
 MESSAGES['LOGIN_RES'] = function(data){
     console.log(data);
+    // 查询用户信息是不是正确
+    console.log(DB.userModel);
+
+
 
     return {'status': 'OK'};
 };
@@ -28,22 +33,26 @@ MESSAGES['CONTACT_LIST_RES'] = function(data){
             'name':'Vaster',
             'avatar':'http://img1.2345.com/duoteimg/qqTxImg/2/78d4ee9b26cf134b72e6204fba2415f6.jpg',
             'message':'Hi, i am new here.',
-            'time':'11:21'
+            'time':'11:21',
+            'uid' : '12'
         },{
             'name':'Tom',
             'avatar':'http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg',
             'message':'No news is good news.',
-            'time':'10:37'
+            'time':'10:37',
+            'uid' : '14'
         },{
             'name':'Jack',
             'avatar':'http://img.cnjiayu.net/3211573049-3310678237-21-0.jpg',
             'message':'Jack is a good boy.',
-            'time':'09:15'
+            'time':'09:15',
+            'uid' : '15'
         },{
             'name':'Smite',
             'avatar':'http://img2.imgtn.bdimg.com/it/u=1963725967,863016856&fm=214&gp=0.jpg',
             'message':'Smite every day!',
-            'time':'08:22'
+            'time':'08:22',
+            'uid' : '16'
         }
     ];
     return {'status': 'OK','contacts':contacts};
@@ -58,22 +67,26 @@ MESSAGES['RECENTLY_LIST_RES'] = function(data){
             'name':'Vaster',
             'avatar':'http://img1.2345.com/duoteimg/qqTxImg/2/78d4ee9b26cf134b72e6204fba2415f6.jpg',
             'message':'Hi, i am new here.',
-            'time':'11:21'
+            'time':'11:21',
+            'uid' : '12'
         },{
             'name':'Tom',
             'avatar':'http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg',
             'message':'No news is good news.',
-            'time':'10:37'
+            'time':'10:37',
+            'uid' : '14'
         },{
             'name':'Jack',
             'avatar':'http://img.cnjiayu.net/3211573049-3310678237-21-0.jpg',
             'message':'Jack is a good boy.',
-            'time':'09:15'
+            'time':'09:15',
+            'uid' : '15'
         },{
             'name':'Smite',
             'avatar':'http://img2.imgtn.bdimg.com/it/u=1963725967,863016856&fm=214&gp=0.jpg',
             'message':'Smite every day!',
-            'time':'08:22'
+            'time':'08:22',
+            'uid' : '16'
         }
     ];
     return {'status': 'OK','contacts':contacts};
@@ -86,6 +99,5 @@ MESSAGES['CHAT_MESSAGE_RES'] = function(){
 
 
 // 退出消息  LOGOUT
-
 
 module.exports = MESSAGES;
