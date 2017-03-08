@@ -1,6 +1,6 @@
 # Chat
 一个聊天程序
-![image](chat/design/demo.png)
+![image](https://github.com/Hao8816/chat/blob/master/design/demo.png)
 
 
 # 技术栈
