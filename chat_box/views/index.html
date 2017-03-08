@@ -42,20 +42,7 @@
 </div>
 <script type="text/javascript" src="../angularjs/angular.min.js"></script>
 <script type="text/javascript" src="../angularjs/angular-route.min.js"></script>
-<script type="text/javascript" src="../js/chat.js"></script>
 <script type="text/javascript" src="../js/socket.io.min.js"></script>
-<script type="text/javascript">
-    var socket = io('http://127.0.0.1:3000');
-    socket.on('connect', function(){
-//        alert("dddd")
-    });
-    socket.on('event', function(data){
-        console.log(data)
-    });
-    socket.on('disconnect', function(){});
-
-</script>
-
-
+<script type="text/javascript" src="../js/chat.js"></script>
 </body>
 </html>

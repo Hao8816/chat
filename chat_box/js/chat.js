@@ -1,6 +1,14 @@
 // 配置页面路由 'chat'
-var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope) {
+var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket) {
     $rootScope.screenH = document.documentElement.clientHeight;
+    socket.on('connect',function(){
+        socket.emit('login',{'name':'chenhao'})
+    });
+
+    socket.on('login', function(data){
+        console.log("登录成功",data);
+    });
+    socket.on('disconnect', function(){});
 });
 
 // 配置页面
@@ -21,6 +29,30 @@ app_router.config(['$routeProvider', function ($routeProvider) {
 
         otherwise({redirectTo: '/recently/'});
 }]);
+
+app_router.factory('socket', function ($rootScope) {
+    var socket = io('http://127.0.0.1:3000');
+    return {
+        on: function (eventName, callback) {
+            socket.on(eventName, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            })
+        }
+    };
+});
 
 // 判断是否为手机号码
 function isPhone(phone){
@@ -59,33 +91,18 @@ app_router.directive('ngEnter', function () {
 
 angular.module('chat').controller(
     'recentlyPageController',
-    function recentlyPageController($scope, $rootScope, $http) {
+    function recentlyPageController($scope, $rootScope, $http, socket) {
         $rootScope.link_index = 1;
         $scope.contact_index = 2;
-        var contacts = [
-            {
-                'name':'Vaster',
-                'avatar':'http://img1.2345.com/duoteimg/qqTxImg/2/78d4ee9b26cf134b72e6204fba2415f6.jpg',
-                'message':'Hi, i am new here.',
-                'time':'11:21'
-            },{
-                'name':'Tom',
-                'avatar':'http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg',
-                'message':'No news is good news.',
-                'time':'10:37'
-            },{
-                'name':'Jack',
-                'avatar':'http://img.cnjiayu.net/3211573049-3310678237-21-0.jpg',
-                'message':'Jack is a good boy.',
-                'time':'09:15'
-            },{
-                'name':'Smite',
-                'avatar':'http://img0w.pconline.com.cn/pconline/1312/16/4009776_16-010002_818.jpg',
-                'message':'Smite every day!',
-                'time':'08:22'
-            }
-        ];
-        $scope.contacts = contacts;
+
+        socket.emit('recently_list',{'name':'chenhao'});
+        socket.on('recently_list', function(data){
+            console.log("获取最近聊天列表成功",data);
+            var contacts = data['contacts'];
+            $scope.contacts = contacts;
+        });
+
+
         $scope.chatWith = function(obj){
             $scope.contact_index = obj.$index;
 
@@ -102,33 +119,17 @@ angular.module('chat').controller(
 
 angular.module('chat').controller(
     'contactsPageController',
-    function contactsPageController($scope, $rootScope, $http) {
+    function contactsPageController($scope, $rootScope, $http, socket) {
         $rootScope.link_index = 2;
         $scope.contact_index = 2;
-        var contacts = [
-            {
-                'name':'Vaster',
-                'avatar':'http://img1.2345.com/duoteimg/qqTxImg/2/78d4ee9b26cf134b72e6204fba2415f6.jpg',
-                'message':'Hi, i am new here.',
-                'time':'11:21'
-            },{
-                'name':'Tom',
-                'avatar':'http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg',
-                'message':'No news is good news.',
-                'time':'10:37'
-            },{
-                'name':'Jack',
-                'avatar':'http://img.cnjiayu.net/3211573049-3310678237-21-0.jpg',
-                'message':'Jack is a good boy.',
-                'time':'09:15'
-            },{
-                'name':'Smite',
-                'avatar':'http://img0w.pconline.com.cn/pconline/1312/16/4009776_16-010002_818.jpg',
-                'message':'Smite every day!',
-                'time':'08:22'
-            }
-        ];
-        $scope.contacts = contacts;
+
+        socket.emit('contact_list',{'name':'chenhao'});
+        socket.on('contact_list', function(data){
+            console.log("获取好友列表成功",data);
+            var contacts = data['contacts'];
+            $scope.contacts = contacts;
+        });
+
 
         $scope.chatWith = function(obj){
             $scope.contact_index = obj.$index;
