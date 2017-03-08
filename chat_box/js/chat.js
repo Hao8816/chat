@@ -7,6 +7,8 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
 
     socket.on('login', function(data){
         console.log("登录成功",data);
+
+        $rootScope.Uid = '12';
     });
     socket.on('disconnect', function(){});
 });
@@ -95,12 +97,39 @@ angular.module('chat').controller(
         $rootScope.link_index = 1;
         $scope.contact_index = 2;
 
+        $scope.message_list = [
+            {
+                from : '21',
+                to : '12',
+                content : "你好",
+                time : new Date().getTime()
+            }
+        ];
+
         socket.emit('recently_list',{'name':'chenhao'});
         socket.on('recently_list', function(data){
             console.log("获取最近聊天列表成功",data);
             var contacts = data['contacts'];
             $scope.contacts = contacts;
         });
+
+        // 发送消息
+        $scope.sendMessage = function(){
+            var message = $scope.message;
+            if (!message){
+                return;
+            }
+            socket.emit('chat_message',{'message': message});
+            // 将消息显示在消息列表中
+            var msg = {
+                from : '12',
+                to : '21',
+                content : message,
+                time : new Date().getTime()
+            };
+            $scope.message_list.push(msg);
+            $scope.message = '';
+        };
 
 
         $scope.chatWith = function(obj){

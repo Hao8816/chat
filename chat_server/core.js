@@ -24,10 +24,13 @@ io.on('connection', function(client){
         client.emit(MS.RECENTLY_LIST,res);
     });
 
-    // 处理用户见
+    // 处理用户发送的消息，传递给好友
+    client.on(MS.CHAT_MESSAGE, function(data){
+        // 消息转发
+        console.log(data);
 
 
-
+    });
 
     client.on('disconnect', function(){});
 });

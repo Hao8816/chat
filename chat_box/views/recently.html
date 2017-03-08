@@ -23,12 +23,20 @@
             <img class="image" src="{{current.avatar}}" alt=""/>
             <div class="name">{{current.name}}</div>
         </div>
-        <div class="message-content" style="height: {{screenH-132}}px">
+        <div class="message-content" style="height: {{screenH-132}}px;overflow-y: scroll">
+            <div class="message-item message-{{Uid==message.to?'left':'right'}}" ng-repeat="message in message_list">
+                <div class="image">
+                    <img ng-if="Uid==message.to" src="{{current.avatar}}" alt="">
+                    <img ng-if="Uid==message.from" src="http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg" alt="">
+                </div>
+                <div class="content">{{message.content}}</div>
+                <div class="time">{{message.time | date :'HH:mm'}}</div>
+            </div>
 
         </div>
         <div class="message-footer">
-            <input class="message-input" placeholder="输入消息..." type="text">
-            <div class="send-btn">
+            <input class="message-input" ng-model="message" ng-enter="sendMessage()" placeholder="输入消息..." type="text">
+            <div class="send-btn" ng-click="sendMessage()">
                 <i class="icon-send"></i>
             </div>
         </div>

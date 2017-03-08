@@ -6,7 +6,8 @@
 var MESSAGES = {
     'LOGIN' : 'login',
     'CONTACT_LIST' : 'contact_list',
-    'RECENTLY_LIST' : 'recently_list'
+    'RECENTLY_LIST' : 'recently_list',
+    'CHAT_MESSAGE' : 'chat_message'
 };
 
 // 登录消息  LOGIN
@@ -77,6 +78,13 @@ MESSAGES['RECENTLY_LIST_RES'] = function(data){
     ];
     return {'status': 'OK','contacts':contacts};
 };
+
+MESSAGES['CHAT_MESSAGE_RES'] = function(){
+
+
+};
+
+
 // 退出消息  LOGOUT
 
 
