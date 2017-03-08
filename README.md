@@ -1,6 +1,6 @@
 # Chat
 一个聊天程序
-![image](chat/design/Screen Shot 2017-03-08 at 7.57.10 PM.png)
+![image](chat/design/demo.png)
 
 
 # 技术栈
