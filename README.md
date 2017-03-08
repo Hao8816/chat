@@ -1,5 +1,6 @@
 # Chat
 一个聊天程序
+![image](https://github.com/Hao8816/ssh2-web/blob/master/design/Screen Shot 2017-03-08 at 7.57.10 PM.png)
 
 
 # 技术栈
