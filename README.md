@@ -5,7 +5,7 @@
 # 技术栈
 
 ## Nginx 静态文件服务器
-
+this is a test
 
 ##Angularjs 前端框架
 
