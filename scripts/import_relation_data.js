@@ -7,15 +7,15 @@ var relations = [
         'status'     : 1
     },{
         'uid_1'      : '12',
-        'uid_2'      : '13',
-        'status'     : 1
-    },{
-        'uid_1'      : '12',
         'uid_2'      : '14',
         'status'     : 1
     },{
         'uid_1'      : '12',
         'uid_2'      : '15',
+        'status'     : 1
+    },{
+        'uid_1'      : '12',
+        'uid_2'      : '16',
         'status'     : 1
     },
     {
@@ -25,6 +25,22 @@ var relations = [
     },{
         'uid_1'      : '13',
         'uid_2'      : '15',
+        'status'     : 1
+    },{
+        'uid_1'      : '13',
+        'uid_2'      : '16',
+        'status'     : 1
+    },{
+        'uid_1'      : '14',
+        'uid_2'      : '15',
+        'status'     : 1
+    },{
+        'uid_1'      : '14',
+        'uid_2'      : '16',
+        'status'     : 1
+    },{
+        'uid_1'      : '15',
+        'uid_2'      : '16',
         'status'     : 1
     }
 ];

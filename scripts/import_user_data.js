@@ -10,6 +10,13 @@ var contacts = [
         'uid' : '12',
         'sex' : '男'
     },{
+        'name':'Jim',
+        'avatar':'http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg',
+        'message':'name is jim',
+        'time':'10:37',
+        'uid' : '13',
+        'sex' : '女'
+    },{
         'name':'Tom',
         'avatar':'http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg',
         'message':'No news is good news.',
