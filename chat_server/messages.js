@@ -16,11 +16,19 @@ var MESSAGES = {
 MESSAGES['LOGIN_RES'] = function(data){
     console.log(data);
     // 查询用户信息是不是正确
-    console.log(DB.userModel);
+    var uid = data['uid'];
+    DB.userModel.getUser(uid,function(err,res){
+        if (err){
+            console.log(err);
+            return
+        }
 
+        // 处理用户信息
 
+        console.log(res);
+        return {'status': 'OK'};
 
-    return {'status': 'OK'};
+    });
 };
 
 
@@ -28,6 +36,51 @@ MESSAGES['LOGIN_RES'] = function(data){
 // 获取好友列表响应  CONTACT_LIST_RES
 MESSAGES['CONTACT_LIST_RES'] = function(data){
     console.log(data);
+    var uid = data['uid'];
+    console.log('用户的id',uid);
+    DB.relationModel.find({'uid_1':'12'}).exec(function(err,res){
+        if (err){
+            console.log(err);
+            return
+        }
+
+        // 显示好友列表
+        var uid_list = res;
+        console.log(res);
+//        // 查询好友详细信息
+//        DB.userModel.getUser('uid',function(err,res){
+//            if (err){
+//                console.log(err);
+//                return
+//            }
+//            console.log(res);
+//        });
+
+    });
+
+
+//    DB.relationModel.find({'uid_1':uid},function(err,res){
+//        if (err){
+//            console.log(err);
+//            return
+//        }
+//
+//        // 显示好友列表
+//        var uid_list = res;
+//        console.log(res);
+//        // 查询好友详细信息
+//        DB.userModel.getUser('uid',function(err,res){
+//            if (err){
+//                console.log(err);
+//                return
+//            }
+//            console.log(res);
+//        });
+//
+//    });
+
+
+
     var contacts = [
         {
             'name':'Vaster',

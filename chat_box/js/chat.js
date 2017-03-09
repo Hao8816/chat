@@ -8,7 +8,7 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
 
     $rootScope.login = function(){
         var username = $rootScope.username;
-        socket.emit('login',{'name': username})
+        socket.emit('login',{'uid': username})
     };
 
     socket.on('login', function(data){
@@ -114,7 +114,7 @@ angular.module('chat').controller(
             }
         ];
 
-        socket.emit('recently_list',{'name':'chenhao'});
+        socket.emit('recently_list',{'uid':'12'});
         socket.on('recently_list', function(data){
             console.log("获取最近聊天列表成功",data);
             var contacts = data['contacts'];
@@ -160,7 +160,7 @@ angular.module('chat').controller(
         $rootScope.link_index = 2;
         $scope.contact_index = 2;
 
-        socket.emit('contact_list',{'name':'chenhao'});
+        socket.emit('contact_list',{'uid':'12'});
         socket.on('contact_list', function(data){
             console.log("获取好友列表成功",data);
             var contacts = data['contacts'];

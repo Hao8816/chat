@@ -24,6 +24,10 @@ var User = new mongoose.Schema({
     avatar     : {type : String},                        // 用户头像的sha1信息
     note       : {type : String}                         // 用户个人签名
 });
+User.statics.getUser = function(uid, callback) {
+    return this.model('user').find({uid: uid}, callback);
+};
+
 
 // 联系人关系表 Schema 结构
 var Relation = new mongoose.Schema({
