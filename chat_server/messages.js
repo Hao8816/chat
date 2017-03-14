@@ -63,6 +63,7 @@ MESSAGES['CONTACT_LIST_RES'] = function(data){
             var contacts = res;
             return {'status': 'OK','contacts':contacts};
         });
+        return {'status': 'OK','contacts':[]};
 
     });
 };
