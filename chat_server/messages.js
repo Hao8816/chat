@@ -1,4 +1,5 @@
 var DB = require('./models.js');
+var async = require('async');
 /*
 *  不同类型的消息路由功能
 *
@@ -36,36 +37,46 @@ MESSAGES['LOGIN_RES'] = function(data){
 // 获取好友列表响应  CONTACT_LIST_RES
 MESSAGES['CONTACT_LIST_RES'] = function(data){
     var uid = data['uid'];
-    DB.relationModel.find({ $or: [ {'uid_1': uid}, { 'uid_2': uid } ] }).exec(function(err,res){
-        if (err){
-            console.log(err);
-            return
-        }
-        // 显示好友列表
-        var uid_list = res;
 
-        // 循环好友列表
-        var uids = [];
-        for(var i=0;i<uid_list.length;i++){
-            if (uid_list[i]['uid_1']==uid){
-                uids.push(uid_list[i]['uid_2']);
-            }else{
-                uids.push(uid_list[i]['uid_1']);
-            }
-        }
-        // 查询批量用户的详细信息
-        DB.userModel.find({ uid: { $in: uids} }).exec(function(err,res){
-            if (err){
-                console.log(err);
-                return
-            }
-            console.log('好友列表详情',res);
-            var contacts = res;
-            return {'status': 'OK','contacts':contacts};
-        });
-        return {'status': 'OK','contacts':[]};
+    async.waterfall([
+        function(callback){
+            DB.relationModel.find({ $or: [ {'uid_1': uid}, { 'uid_2': uid } ] }).exec(function(err,res){
+                if (err){
+                    console.log(err);
+                    return
+                }
+                // 显示好友列表
+                var uid_list = res;
+                // 循环好友列表
+                var uids = [];
+                for(var i=0;i<uid_list.length;i++){
+                    if (uid_list[i]['uid_1']==uid){
+                        uids.push(uid_list[i]['uid_2']);
+                    }else{
+                        uids.push(uid_list[i]['uid_1']);
+                    }
+                }
+                callback(null, uids);
+            });
 
+        },
+        function(uids, callback){
+            // 查询批量用户的详细信息
+            DB.userModel.find({ uid: { $in: uids} }).exec(function(err,res){
+                if (err){
+                    console.log(err);
+                    return
+                }
+                console.log('好友列表详情',res);
+                var contacts = res;
+                callback(null, contacts);
+            });
+        }
+    ], function (err, result) {
+        console.log(result);
+        return {'status': 'OK','contacts':result};
     });
+    
 };
 
 // 最近聊天   RECENTLY_LIST
