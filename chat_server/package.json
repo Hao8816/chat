@@ -18,7 +18,8 @@
     "socket.io":"~1.7.0",
     "async":"~2.1.4",
     "sha1":"~1.1.0",
-    "mongoose":"~4.8.6"
+    "mongoose":"~4.8.6",
+    "socket.io-client":"~1.7.3"
   },
   "author": "Vaster Chen",
   "license": "ISC"

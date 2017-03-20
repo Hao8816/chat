@@ -1,5 +1,13 @@
 var DB = require('./models.js');
 var async = require('async');
+
+// 处理客户端消息之后，消息通知客户端
+var socket = require('socket.io-client')('http://127.0.0.1:3000');
+socket.on('connect', function(){
+
+});
+socket.on('disconnect', function(){});
+
 /*
 *  不同类型的消息路由功能
 *
@@ -9,7 +17,8 @@ var MESSAGES = {
     'LOGIN' : 'login',
     'CONTACT_LIST' : 'contact_list',
     'RECENTLY_LIST' : 'recently_list',
-    'CHAT_MESSAGE' : 'chat_message'
+    'CHAT_MESSAGE' : 'chat_message',
+    'CONTACT_LIST_RES' : 'chat_message_response'
 };
 
 // 登录消息  LOGIN
@@ -35,9 +44,8 @@ MESSAGES['LOGIN_RES'] = function(data){
 
 // 获取好友列表  CONTACT_LIST
 // 获取好友列表响应  CONTACT_LIST_RES
-MESSAGES['CONTACT_LIST_RES'] = function(data){
+MESSAGES['GET_CONTACT_LIST'] = function(data){
     var uid = data['uid'];
-
     async.waterfall([
         function(callback){
             DB.relationModel.find({ $or: [ {'uid_1': uid}, { 'uid_2': uid } ] }).exec(function(err,res){
@@ -74,9 +82,9 @@ MESSAGES['CONTACT_LIST_RES'] = function(data){
         }
     ], function (err, result) {
         console.log(result);
-        return {'status': 'OK','contacts':result};
+        socket.emit('CONTACT_LIST_RES',{'status': 'OK','contacts':result});
     });
-    
+
 };
 
 // 最近聊天   RECENTLY_LIST
