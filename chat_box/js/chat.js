@@ -14,9 +14,7 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
     socket.on('login', function(data){
         console.log("登录成功",data);
         $rootScope.login_status = true;
-
-
-        $rootScope.Uid = '12';
+        $rootScope.uid = data['uid'];
     });
     socket.on('disconnect', function(){});
 });
@@ -41,7 +39,8 @@ app_router.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app_router.factory('socket', function ($rootScope) {
-    var socket = io('http://www.tihub.cn:3000');
+    //var socket = io('http://www.tihub.cn:3000');
+    var socket = io('http://127.0.0.1:3000');
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
@@ -130,14 +129,17 @@ angular.module('chat').controller(
             socket.emit('chat_message',{'message': message});
             // 将消息显示在消息列表中
             var msg = {
-                from : '12',
-                to : '21',
+                from : $rootScope.uid,
+                to : $scope.current.uid,
                 content : message,
                 time : new Date().getTime()
             };
             $scope.message_list.push(msg);
             $scope.message = '';
         };
+        socket.on('chat_message', function(data){
+            console.log("接受到聊天消息",data);
+        });
 
 
         $scope.chatWith = function(obj){
@@ -145,6 +147,7 @@ angular.module('chat').controller(
 
             // 当前选中的用户
             $scope.current = {
+                uid : obj.contact.uid,
                 name : obj.contact.name,
                 avatar: obj.contact.avatar
             }
@@ -162,6 +165,9 @@ angular.module('chat').controller(
 
         socket.emit('contact_list',{'uid':'12'});
         socket.on('contact_list', function(data){
+            console.log("请求好友列表。。。",data);
+        });
+        socket.on('contact_list_response', function(data){
             console.log("获取好友列表成功",data);
             var contacts = data['contacts'];
             $scope.contacts = contacts;

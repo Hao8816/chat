@@ -7,7 +7,7 @@
                     <img class="image" src="{{contact.avatar}}" alt=""/>
                 </div>
                 <div>
-                    <div class="name">{{contact.name}}</div>
+                    <div class="name">{{contact.username}}</div>
                     <div>
                         <span class="message">{{contact.message}}</span>
                         <span class="time">{{contact.time}}</span>
@@ -21,7 +21,7 @@
     <div style="width: 700px;background-color: #EFF4F8;height: {{screenH}}px;box-shadow:-1px 1px 5px 2px #D6E0E4">
         <div class="message-title">
             <img class="image" src="{{current.avatar}}" alt=""/>
-            <div class="name">{{current.name}}</div>
+            <div class="name">{{current.username}}</div>
         </div>
         <div class="message-content" style="height: {{screenH-132}}px;overflow-y: scroll">
             <div class="message-item message-{{Uid==message.to?'left':'right'}}" ng-repeat="message in message_list">

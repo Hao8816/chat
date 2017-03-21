@@ -11,10 +11,10 @@
                     <img class="image" src="{{contact.avatar}}" alt=""/>
                 </div>
                 <div>
-                    <div class="name">{{contact.name}}</div>
+                    <div class="name">{{contact.username}}</div>
                     <div>
                         <span class="message">{{contact.message}}</span>
-                        <!--<span class="time">{{contact.time}}</span>-->
+                        <span class="time">{{contact.time | date:'HH:mm'}}</span>
                     </div>
                 </div>
             </li>
@@ -25,7 +25,7 @@
     <div style="width: 700px;background-color: #EFF4F8;height: {{screenH}}px;">
         <div class="blog-item" style="text-align: center;padding-top: 30px">
             <img style="border-radius: 100%" width="120" height="120" class="image" src="{{current.avatar}}" alt=""/>
-            <div class="name" style="font-size: 18px;padding: 10px">{{current.name}}</div>
+            <div class="name" style="font-size: 18px;padding: 10px">{{current.username}}</div>
             <div class="name" style="font-size: 18px;padding: 10px">{{current.desc}}</div>
         </div>
     </div>
