@@ -12,10 +12,17 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
     };
 
     socket.on('login', function(data){
+        console.log("发送登录请求...");
+    });
+
+    socket.on('login_response', function(data){
         console.log("登录成功",data);
         $rootScope.login_status = true;
         $rootScope.uid = data['uid'];
     });
+
+
+
     socket.on('disconnect', function(){});
 });
 
@@ -115,8 +122,11 @@ angular.module('chat').controller(
 
         socket.emit('recently_list',{'uid':'12'});
         socket.on('recently_list', function(data){
-            console.log("获取最近聊天列表成功",data);
-            var contacts = data['contacts'];
+            console.log("发送回去最近聊天列表...");
+        });
+        socket.on('recently_list_response', function(data){
+            console.log("获取z最近聊天列表成功",data);
+            var contacts = data['recent_list'];
             $scope.contacts = contacts;
         });
 
@@ -126,7 +136,6 @@ angular.module('chat').controller(
             if (!message){
                 return;
             }
-            socket.emit('chat_message',{'message': message});
             // 将消息显示在消息列表中
             var msg = {
                 from : $rootScope.uid,
@@ -134,6 +143,7 @@ angular.module('chat').controller(
                 content : message,
                 time : new Date().getTime()
             };
+            socket.emit('chat_message', msg);
             $scope.message_list.push(msg);
             $scope.message = '';
         };
