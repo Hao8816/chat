@@ -23,7 +23,7 @@
             <img class="image" src="{{current.avatar}}" alt=""/>
             <div class="name">{{current.username}}</div>
         </div>
-        <div class="message-content" style="height: {{screenH-132}}px;overflow-y: scroll">
+        <div class="message-content" style="height: {{pageH-132}}px;overflow-y: scroll">
             <div class="message-item message-{{Uid==message.to?'left':'right'}}" ng-repeat="message in message_list">
                 <div class="image">
                     <img ng-if="Uid==message.to" src="{{current.avatar}}" alt="">
