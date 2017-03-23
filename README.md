@@ -1,7 +1,7 @@
 # Chat
 一个聊天程序
 ![image](https://github.com/Hao8816/chat/blob/master/design/demo.png)
-项目的演示地址 : http://www.tihub.cn/chat/views/index.html
+项目的演示地址 : http://www.tihub.cn/chat/
 
 # 技术栈
 
