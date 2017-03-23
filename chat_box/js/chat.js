@@ -212,8 +212,9 @@ angular.module('chat').controller(
     function loginPageController($scope, $rootScope, $http, socket, $location) {
 
         $rootScope.login = function(){
-            var username = $rootScope.username;
-            socket.emit('login',{'uid': username})
+            var username = $scope.username;
+            var password = $scope.password;
+            socket.emit('login',{'uid': username,'password':password})
         };
 
         socket.on('login', function(data){
