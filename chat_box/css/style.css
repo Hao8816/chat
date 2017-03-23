@@ -27,12 +27,12 @@ body{
     background-color: #fff;
 }
 .avatar{
-    margin-top: 20px;
+    margin-top: 15px;
     margin-bottom: 20px;
 }
 .avatar .image{
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
     border-radius: 100%;
 }
 .avatar .name{
@@ -285,7 +285,7 @@ body{
     height: 40px;
     position: absolute;
     right: 20px;
-    top: 10px;
+    top: 8px;
 }
 .message-item.message-left .time{
     text-align: left;
