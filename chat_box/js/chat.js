@@ -15,7 +15,6 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
                 $rootScope.login_status = true;
                 $rootScope.uid = uid;
                 $rootScope.user = data['user'];
-                $location.path('/recently/')
             });
         }else{
             $location.path('/login/');
@@ -124,6 +123,7 @@ angular.module('chat').controller(
             console.log("获取z最近聊天列表成功",data);
             var contacts = data['recent_list'];
             $scope.contacts = contacts;
+            $scope.current = contacts[0];
         });
 
         // 发送消息
@@ -177,6 +177,7 @@ angular.module('chat').controller(
             console.log("获取好友列表成功",data);
             var contacts = data['contacts'];
             $scope.contacts = contacts;
+            $scope.current = contacts[0];
         });
 
 
