@@ -9,6 +9,13 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
         var local_uid = localStorage.getItem('UID');
         if (local_uid){
             socket.emit('login',{'uid': local_uid})
+            socket.on('login_response', function(data){
+                console.log("登录成功",data);
+                var uid = data['uid'];
+                $rootScope.login_status = true;
+                $rootScope.uid = uid;
+                $location.path('/recently/')
+            });
         }else{
             $location.path('/login/');
         }
