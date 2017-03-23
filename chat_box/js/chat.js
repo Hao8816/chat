@@ -114,8 +114,9 @@ angular.module('chat').controller(
         $scope.contact_index = 2;
 
         $scope.message_list = [];
+        var uid = localStorage.getItem('UID');
 
-        socket.emit('recently_list',{'uid':$rootScope.uid});
+        socket.emit('recently_list',{'uid':uid});
         socket.on('recently_list', function(data){
             console.log("发送回去最近聊天列表...");
         });
@@ -167,7 +168,8 @@ angular.module('chat').controller(
         $rootScope.link_index = 2;
         $scope.contact_index = 2;
 
-        socket.emit('contact_list',{'uid':$rootScope.uid});
+        var uid = localStorage.getItem('UID');
+        socket.emit('contact_list',{'uid':uid});
         socket.on('contact_list', function(data){
             console.log("请求好友列表。。。",data);
         });
