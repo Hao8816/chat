@@ -1,6 +1,6 @@
 // 配置页面路由 'chat'
 var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket,$location) {
-    $rootScope.pageH = document.documentElement.clientHeight-160;
+    $rootScope.pageH = document.documentElement.clientHeight-140;
     socket.on('connect',function(){
         // 连接成功
         console.log('连接消息服务器成功');
