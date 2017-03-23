@@ -6,7 +6,12 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
         console.log('连接消息服务器成功');
     });
     if (!$rootScope.login_status){
-        $location.path('/login/');
+        var local_uid = localstorage.getItem('UID');
+        if (local_uid){
+            socket.emit('login',{'uid': local_uid})
+        }else{
+            $location.path('/login/');
+        }
     }
     socket.on('disconnect', function(){});
 });
@@ -210,8 +215,10 @@ angular.module('chat').controller(
 
         socket.on('login_response', function(data){
             console.log("登录成功",data);
+            var uid = data['uid'];
             $rootScope.login_status = true;
-            $rootScope.uid = data['uid'];
+            $rootScope.uid = uid;
+            localstorage.setItem('UID',uid);
             $location.path('/recently/')
         });
     }
