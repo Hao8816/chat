@@ -1,6 +1,6 @@
 // 配置页面路由 'chat'
 var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket,$location) {
-    $rootScope.pageH = document.documentElement.clientHeight-140;
+    $rootScope.pageH = document.documentElement.clientHeight-120;
     socket.on('connect',function(){
         // 连接成功
         console.log('连接消息服务器成功');
@@ -113,14 +113,7 @@ angular.module('chat').controller(
         $rootScope.link_index = 1;
         $scope.contact_index = 2;
 
-        $scope.message_list = [
-            {
-                from : '21',
-                to : '12',
-                content : "你好",
-                time : new Date().getTime()
-            }
-        ];
+        $scope.message_list = [];
 
         socket.emit('recently_list',{'uid':$rootScope.uid});
         socket.on('recently_list', function(data){

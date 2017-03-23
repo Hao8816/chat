@@ -14,15 +14,15 @@
                     <div class="name">{{contact.username}}</div>
                     <div>
                         <span class="message">{{contact.message}}</span>
-                        <span class="time">{{contact.time | date:'HH:mm'}}</span>
+                        <span class="time">{{contact.time | date:'yyyy-MM-dd'}}</span>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
 </div>
-<div class="blog-wrapper">
-    <div style="width: 700px;background-color: #EFF4F8;height: {{pageH}}px;">
+<div class="blog-wrapper" style="flex: 1">
+    <div style="background-color: #EFF4F8;height: {{pageH}}px;">
         <div class="blog-item" style="text-align: center;padding-top: 30px">
             <img style="border-radius: 100%" width="120" height="120" class="image" src="{{current.avatar}}" alt=""/>
             <div class="name" style="font-size: 18px;padding: 10px">{{current.username}}</div>
