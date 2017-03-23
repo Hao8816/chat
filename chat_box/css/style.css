@@ -120,8 +120,8 @@ body{
 .title-wrapper{
     border-bottom: 1px solid #ebf6fb;
     color: #2d4049;
-    padding: 25px 15px;
-    font-weight: bold;
+    padding: 20px 15px;
+    font-weight: normal;
     font-size: 15px;
 }
 
@@ -188,15 +188,15 @@ body{
     background-color: #fff;
     padding: 0px 20px 0px 60px;
     position: relative;
-    height: 68px;
+    height: 58px;
 }
 .message-title .image{
     position: absolute;
     width: 44px;
     height: 44px;
     border-radius: 100%;
-    left: 20px;
-    top: 12px;
+    left: 15px;
+    top: 6px;
 }
 .message-title .name{
     padding: 10px;
