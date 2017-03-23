@@ -1,28 +1,13 @@
 // 配置页面路由 'chat'
-var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket) {
+var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket,$location) {
     $rootScope.pageH = document.documentElement.clientHeight-200;
     socket.on('connect',function(){
         // 连接成功
         console.log('连接消息服务器成功');
     });
-
-    $rootScope.login = function(){
-        var username = $rootScope.username;
-        socket.emit('login',{'uid': username})
-    };
-
-    socket.on('login', function(data){
-        console.log("发送登录请求...");
-    });
-
-    socket.on('login_response', function(data){
-        console.log("登录成功",data);
-        $rootScope.login_status = true;
-        $rootScope.uid = data['uid'];
-    });
-
-
-
+    if ($rootScope.login_status == false){
+        $location.path('/login/');
+    }
     socket.on('disconnect', function(){});
 });
 
@@ -212,9 +197,23 @@ angular.module('chat').controller(
 
 angular.module('chat').controller(
     'loginPageController',
-    function loginPageController($scope, $rootScope, $http) {
+    function loginPageController($scope, $rootScope, $http, socket, $location) {
 
+        $rootScope.login = function(){
+            var username = $rootScope.username;
+            socket.emit('login',{'uid': username})
+        };
 
+        socket.on('login', function(data){
+            console.log("发送登录请求...");
+        });
+
+        socket.on('login_response', function(data){
+            console.log("登录成功",data);
+            $rootScope.login_status = true;
+            $rootScope.uid = data['uid'];
+            $location.path('/recently/')
+        });
     }
 );
 
