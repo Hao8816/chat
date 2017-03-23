@@ -36,7 +36,7 @@ MESSAGES['USER_LOGIN'] = function(data){
         }
         // 处理用户信息
 
-        console.log(res);
+        console.log('登录用户的信息',res);
         socket.emit(MESSAGES.LOGIN_RES,{'status': 'OK', data: res[0]});
     });
 };
