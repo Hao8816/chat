@@ -34,11 +34,10 @@ MESSAGES['USER_LOGIN'] = function(data){
             console.log(err);
             return
         }
-
         // 处理用户信息
 
         console.log(res);
-        socket.emit(MESSAGES.LOGIN_RES,{'status': 'OK','uid': uid});
+        socket.emit(MESSAGES.LOGIN_RES,{'status': 'OK', data: res});
     });
 };
 
