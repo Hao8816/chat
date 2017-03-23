@@ -38,7 +38,7 @@ MESSAGES['USER_LOGIN'] = function(data){
 
         console.log('登录用户的信息',res);
         console.log(socket.emit);
-        socket.emit(MESSAGES.LOGIN_RES,res[0]);
+        socket.emit(MESSAGES.LOGIN_RES,{'status': 'OK','user':res[0],'uid': uid});
     });
 };
 
