@@ -1,5 +1,5 @@
 <div class="contacts-wrapper">
-    <div class="contact-list" style="width: 280px;border-right: 1px solid #ddd;height: {{screenH}}px">
+    <div class="contact-list" style="width: 280px;border-right: 1px solid #ddd;height: {{pageH}}px">
         <div class="title-wrapper">最近聊天</div>
         <ul class="contact-items">
             <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
@@ -18,7 +18,7 @@
     </div>
 </div>
 <div class="message-wrapper">
-    <div style="width: 700px;background-color: #EFF4F8;height: {{screenH}}px;box-shadow:-1px 1px 5px 2px #D6E0E4">
+    <div style="width: 700px;background-color: #EFF4F8;height: {{pageH}}px;">
         <div class="message-title">
             <img class="image" src="{{current.avatar}}" alt=""/>
             <div class="name">{{current.username}}</div>

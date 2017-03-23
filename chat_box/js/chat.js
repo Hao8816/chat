@@ -1,6 +1,6 @@
 // 配置页面路由 'chat'
 var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket) {
-    $rootScope.screenH = document.documentElement.clientHeight;
+    $rootScope.pageH = document.documentElement.clientHeight-200;
     socket.on('connect',function(){
         // 连接成功
         console.log('连接消息服务器成功');
@@ -40,6 +40,10 @@ app_router.config(['$routeProvider', function ($routeProvider) {
         when('/settings/', {
             templateUrl: 'settings.html',
             controller: 'settingsPageController'
+        }).
+        when('/login/', {
+            templateUrl: 'login.html',
+            controller: 'loginPageController'
         }).
 
         otherwise({redirectTo: '/recently/'});
@@ -204,3 +208,13 @@ angular.module('chat').controller(
 
     }
 );
+
+
+angular.module('chat').controller(
+    'loginPageController',
+    function loginPageController($scope, $rootScope, $http) {
+
+
+    }
+);
+
