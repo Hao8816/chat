@@ -35,8 +35,8 @@ app_router.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app_router.factory('socket', function ($rootScope) {
-    //var socket = io('http://www.tihub.cn:3000');
-    var socket = io('http://127.0.0.1:3000');
+    var socket = io('http://www.tihub.cn:3000');
+    //var socket = io('http://127.0.0.1:3000');
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
