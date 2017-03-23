@@ -10,15 +10,15 @@
                     <div class="name">{{contact.username}}</div>
                     <div>
                         <span class="message">{{contact.message}}</span>
-                        <span class="time">{{contact.time}}</span>
+                        <span class="time">{{contact.time | date:'HH:mm'}}</span>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
 </div>
-<div class="message-wrapper">
-    <div style="width: 700px;background-color: #EFF4F8;height: {{pageH}}px;">
+<div class="message-wrapper" style="flex: 1">
+    <div style="background-color: #EFF4F8;height: {{pageH}}px;">
         <div class="message-title">
             <img class="image" src="{{current.avatar}}" alt=""/>
             <div class="name">{{current.username}}</div>
