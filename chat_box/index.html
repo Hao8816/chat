@@ -19,7 +19,7 @@
     <div class="left_wrapper" ng-if="login_status" style="height: {{pageH}}px">
         <div class="avatar">
             <img class="image" src="{{user.avatar}}" alt="">
-            <div class="name">{{user.username}}</div>
+            <div class="name" ng-bind="user.username"></div>
         </div>
         <ul class="links">
             <li class="link-item {{link_index==1?'active':''}}">

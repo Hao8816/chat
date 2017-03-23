@@ -36,8 +36,8 @@ body{
     border-radius: 100%;
 }
 .avatar .name{
-    font-size: 15px;
-    color: #eee;
+    font-size: 14px;
+    color: #ddd;
 }
 .links{
     margin: 0px;
@@ -193,14 +193,14 @@ body{
 }
 .message-title .image{
     position: absolute;
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
     border-radius: 100%;
     left: 15px;
-    top: 6px;
+    top: 10px;
 }
 .message-title .name{
-    padding: 10px;
+    padding: 10px 0px;
     line-height: 40px;
     font-size: 14px;
 }
