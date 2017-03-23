@@ -5,7 +5,7 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
         // 连接成功
         console.log('连接消息服务器成功');
     });
-    if ($rootScope.login_status == false){
+    if (!$rootScope.login_status){
         $location.path('/login/');
     }
     socket.on('disconnect', function(){});
