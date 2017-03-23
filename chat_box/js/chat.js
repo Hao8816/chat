@@ -15,19 +15,19 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
 app_router.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
         when('/recently/', {
-            templateUrl: 'recently.html',
+            templateUrl: 'views/recently.html',
             controller: 'recentlyPageController'
         }).
         when('/contacts/', {
-            templateUrl: 'contacts.html',
+            templateUrl: 'views/contacts.html',
             controller: 'contactsPageController'
         }).
         when('/settings/', {
-            templateUrl: 'settings.html',
+            templateUrl: 'views/settings.html',
             controller: 'settingsPageController'
         }).
         when('/login/', {
-            templateUrl: 'login.html',
+            templateUrl: 'views/login.html',
             controller: 'loginPageController'
         }).
 
