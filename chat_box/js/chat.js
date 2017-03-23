@@ -6,7 +6,7 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
         console.log('连接消息服务器成功');
     });
     if (!$rootScope.login_status){
-        var local_uid = localstorage.getItem('UID');
+        var local_uid = localStorage.getItem('UID');
         if (local_uid){
             socket.emit('login',{'uid': local_uid})
         }else{
@@ -218,7 +218,7 @@ angular.module('chat').controller(
             var uid = data['uid'];
             $rootScope.login_status = true;
             $rootScope.uid = uid;
-            localstorage.setItem('UID',uid);
+            localStorage.setItem('UID',uid);
             $location.path('/recently/')
         });
     }
