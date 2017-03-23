@@ -150,6 +150,9 @@ angular.module('chat').controller(
         };
         socket.on('chat_message', function(data){
             console.log("接受到聊天消息",data);
+            // 解析聊天消息
+            var msg = data;
+            $scope.message_list.push(msg);
         });
 
 
