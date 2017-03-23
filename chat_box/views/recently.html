@@ -27,7 +27,7 @@
             <div class="message-item message-{{uid==message.to?'left':'right'}}" ng-repeat="message in message_list">
                 <div class="image">
                     <img ng-if="Uid==message.to" src="{{current.avatar}}" alt="">
-                    <img ng-if="Uid==message.from" src="http://www.qq745.com/uploads/allimg/140825/1-140R5222015.jpg" alt="">
+                    <img ng-if="Uid==message.from" src="{{user.avatar}}" alt="">
                 </div>
                 <div class="content">{{message.content}}</div>
                 <div class="time">{{message.time | date :'HH:mm'}}</div>

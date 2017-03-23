@@ -161,11 +161,7 @@ angular.module('chat').controller(
             $scope.contact_index = obj.$index;
 
             // 当前选中的用户
-            $scope.current = {
-                uid : obj.contact.uid,
-                name : obj.contact.name,
-                avatar: obj.contact.avatar
-            }
+            $scope.current = obj.contact;
         };
 
 
@@ -193,10 +189,7 @@ angular.module('chat').controller(
             $scope.contact_index = obj.$index;
 
             // 当前选中的用户
-            $scope.current = {
-                name : obj.contact.name,
-                avatar: obj.contact.avatar
-            }
+            $scope.current = obj.contact;
         };
 
     }
