@@ -34,6 +34,10 @@ body{
     height: 44px;
     border-radius: 100%;
 }
+.avatar .name{
+    font-size: 15px;
+    color: #eee;
+}
 .links{
     margin: 0px;
     padding: 0px;
