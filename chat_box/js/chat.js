@@ -14,6 +14,7 @@ var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,s
                 var uid = data['uid'];
                 $rootScope.login_status = true;
                 $rootScope.uid = uid;
+                $rootScope.user = data['user'];
                 $location.path('/recently/')
             });
         }else{
@@ -229,6 +230,7 @@ angular.module('chat').controller(
             var uid = data['uid'];
             $rootScope.login_status = true;
             $rootScope.uid = uid;
+            $rootScope.user = data['user'];
             localStorage.setItem('UID',uid);
             $location.path('/recently/')
         });

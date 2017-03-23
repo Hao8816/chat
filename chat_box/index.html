@@ -18,8 +18,8 @@
 <div class="chat_wrapper">
     <div class="left_wrapper" ng-if="login_status" style="height: {{pageH}}px">
         <div class="avatar">
-            <img class="image" src="images/avatar.jpeg" alt="">
-            <div>vaster</div>
+            <img class="image" src="{{user.avatar}}" alt="">
+            <div>{{user.username}}</div>
         </div>
         <ul class="links">
             <li class="link-item {{link_index==1?'active':''}}">
