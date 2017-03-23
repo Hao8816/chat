@@ -26,8 +26,8 @@
         <div class="message-content" style="height: {{pageH-112}}px;overflow-y: scroll">
             <div class="message-item message-{{uid==message.to?'left':'right'}}" ng-repeat="message in message_list">
                 <div class="image">
-                    <img ng-if="Uid==message.to" src="{{current.avatar}}" alt="">
-                    <img ng-if="Uid==message.from" src="{{user.avatar}}" alt="">
+                    <img ng-if="uid==message.to" src="{{current.avatar}}" alt="">
+                    <img ng-if="uid==message.from" src="{{user.avatar}}" alt="">
                 </div>
                 <div class="content">{{message.content}}</div>
                 <div class="time">{{message.time | date :'HH:mm'}}</div>
