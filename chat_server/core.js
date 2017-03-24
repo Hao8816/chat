@@ -59,6 +59,23 @@ io.on('connection', function(client){
         }
     });
 
+    // 处理聊天消息列表消息
+    client.on(MS.MESSAGE_LIST, function(data){
+        MS.GET_MESSAGE_LIST(data);
+        client.emit(MS.MESSAGE_LIST,{'status': 'OK'});
+    });
+    client.on(MS.MESSAGE_LIST_RES, function(data){
+        // 消息传递，解析用户信息，发送信息到客户段
+        var uid = data['uid'];
+        try {
+            var socket_id = SOCKETS[uid];
+            io.sockets.connected[socket_id].emit(MS.MESSAGE_LIST_RES,data);
+        }catch (err){
+            console.log('++++'+err)
+        }
+    });
+
+
     // 处理用户发送的消息，传递给好友
     client.on(MS.CHAT_MESSAGE, function(data){
         // 消息转发
