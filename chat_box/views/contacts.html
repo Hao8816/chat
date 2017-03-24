@@ -1,5 +1,5 @@
 <div class="contacts-wrapper">
-    <div class="contact-list" style="width: 280px;border-right: 1px solid #eee;height: {{pageH}}px">
+    <div class="contact-list" style="width: 260px;border-right: 1px solid #eee;height: {{pageH}}px">
         <div class="title-wrapper">好友列表</div>
         <div class="search-wrapper">
             <i class="icon-search"></i>
@@ -21,23 +21,20 @@
         </ul>
     </div>
 </div>
-<div class="blog-wrapper" style="width: 220px;text-align: center">
+<div class="blog-wrapper" style="width: 220px;text-align: center;">
     <div style="background-color: #fff;height: {{pageH}}px;">
         <div>
             <img style="border-radius: 100%;margin-top: 30px" width="120" height="120" class="image" src="{{current.avatar}}" alt=""/>
-            <div class="name" style="font-size: 18px;padding: 10px">{{current.username}}</div>
         </div>
         <div style="text-align: left;padding: 15px;font-size: 13px">
-            <p><span>性别: {{current.sex}}</span></p>
-            <p><span>邮箱: {{current.email}}</span></p>
-            <p><span>注册时间: {{current.time | date:'yyyy-MM-dd'}}</span></p>
-            <p><span>个人说明: {{current.desc}}</span></p>
+            <div class="name" style="font-size: 18px;padding: 10px 0px">{{current.username}}</div>
+            <div><span>性别: {{current.sex}}</span></div>
+            <div><span>邮箱: {{current.email}}</span></div>
+            <div><span>注册时间: {{current.time | date:'yyyy-MM-dd'}}</span></div>
+            <div><span>个人说明: {{current.desc}}</span></div>
         </div>
-
     </div>
 </div>
-<div class="blog-wrapper" style="flex: 1">
-    <div style="background-color: #EFF4F8;height: {{pageH}}px;">
-
-    </div>
+<div class="message-wrapper" style="flex: 1">
+    <div style="background-color: #EFF4F8;height: {{pageH}}px;"></div>
 </div>

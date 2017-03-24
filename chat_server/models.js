@@ -39,11 +39,11 @@ var Relation = new mongoose.Schema({
 
 // 聊天消息的存储 Schema 结构
 var Message = new mongoose.Schema({
-    from       : {type : String},                        // 用户的uid 排序
-    to         : {type : String},                        // 用户的uid 排序
+    from       : {type : String},                        // 消息来源
+    to         : {type : String},                        // 消息目的
     content    : {type : String},                        // 消息的内容 排序
     time       : {type : Date, default: Date.now},       // 消息存储的时间
-    status     : {type : Number, default:0}              // 0 是非激活状态  1 是正常状态
+    status     : {type : Number, default:0}              // 0 是未读  1 是已读
 });
 
 // 导出models
