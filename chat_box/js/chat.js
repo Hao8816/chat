@@ -167,7 +167,7 @@ angular.module('chat').controller(
         };
 
         $scope.getHistoryMessage = function(uid_1,uid_2){
-            socket.emit('message_list',{'uid_1':uid_1,'uid_2':uid_1});
+            socket.emit('message_list',{'uid_1':uid_1,'uid_2':uid_2});
         }
 
         socket.on('message_list_response', function(data){
