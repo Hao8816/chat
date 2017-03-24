@@ -42,6 +42,10 @@ app_router.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'views/login.html',
             controller: 'loginPageController'
         }).
+        when('/register/', {
+            templateUrl: 'views/register.html',
+            controller: 'registerPageController'
+        }).
 
         otherwise({redirectTo: '/recently/'});
 }]);

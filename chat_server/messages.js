@@ -143,11 +143,15 @@ MESSAGES['GET_RECENTLY_LIST'] = function(data){
     });
 };
 
-MESSAGES['CHAT_MESSAGE_RES'] = function(){
-
-
+MESSAGES['SAVE_CHAT_MESSAGE'] = function(data){
+    DB.messageModel.create(data, function(error){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log('save ok');
+        }
+    });
 };
-
 
 // 退出消息  LOGOUT
 

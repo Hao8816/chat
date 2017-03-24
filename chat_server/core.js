@@ -25,7 +25,6 @@ io.on('connection', function(client){
         }
     });
 
-
     // 处理获取好友列表消息
     client.on(MS.CONTACT_LIST, function(data){
         MS.GET_CONTACT_LIST(data);
@@ -60,7 +59,6 @@ io.on('connection', function(client){
         }
     });
 
-
     // 处理用户发送的消息，传递给好友
     client.on(MS.CHAT_MESSAGE, function(data){
         // 消息转发
@@ -70,9 +68,12 @@ io.on('connection', function(client){
             var socket_id = SOCKETS[uid];
             console.log('消息传递id',socket_id,SOCKETS);
             io.sockets.connected[socket_id].emit(MS.CHAT_MESSAGE,data);
+            data['status'] = 1;    // 标记消息为已读
         }catch (err){
-            console.log('++++'+err)
+            console.log('目标用户不在线，存储历史消息'+err);
         }
+        // 消息存储
+        MS.SAVE_CHAT_MESSAGE(data);
     });
 
     client.on('disconnect', function(){});
