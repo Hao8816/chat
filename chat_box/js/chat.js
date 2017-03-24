@@ -160,7 +160,22 @@ angular.module('chat').controller(
 
             // 当前选中的用户
             $scope.current = obj.contact;
+
+            // 获取当前聊天用户的消息列表
+            $scope.getHistoryMessage($rootScope.uid,$scope.current.uid);
+
         };
+
+        $scope.getHistoryMessage = function(uid_1,uid_2){
+            socket.emit('message_list',{'uid_1':uid_1,'uid_2':uid_1});
+        }
+
+        socket.on('message_list_response', function(data){
+            console.log("接受到聊天消息",data);
+            // 解析聊天消息
+            var message_list = data['message_list'];
+            $scope.message_list = message_list;
+        });
 
 
     }

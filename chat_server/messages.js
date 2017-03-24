@@ -20,7 +20,10 @@ var MESSAGES = {
     'RECENTLY_LIST' : 'recently_list',
     'RECENTLY_LIST_RES' : 'recently_list_response',
     'CHAT_MESSAGE' : 'chat_message',
-    'CONTACT_LIST_RES' : 'contact_list_response'
+    'CONTACT_LIST_RES' : 'contact_list_response',
+    'MESSAGE_LIST' : 'message_list',
+    'MESSAGE_LIST_RES' : 'message_list_response'
+
 };
 
 // 登录消息  LOGIN
@@ -152,6 +155,22 @@ MESSAGES['SAVE_CHAT_MESSAGE'] = function(data){
         }
     });
 };
+
+MESSAGES['GET_MESSAGE_LIST'] = function(data){
+    var uid_1 = data['uid_1'];
+    var uid_2 = data['uid_2'];
+    DB.messageModel.find({ $or: [ {'from': uid_1, 'to': uid_2}, {'from': uid_2, 'to': uid_1 } ] }).exec(function(err,res){
+        if (err){
+            console.log(err);
+            return
+        }
+        // 消息列表
+        var message_list = res;
+        socket.emit(MESSAGES.MESSAGE_LIST_RES,{'status': 'OK','message_list':message_list,'uid': uid_1});
+    });
+
+};
+
 
 // 退出消息  LOGOUT
 
