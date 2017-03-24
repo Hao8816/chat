@@ -171,7 +171,7 @@ angular.module('chat').controller(
         }
 
         socket.on('message_list_response', function(data){
-            console.log("接受到聊天消息",data);
+            console.log("历史消息列表",data);
             // 解析聊天消息
             var message_list = data['message_list'];
             $scope.message_list = message_list;
