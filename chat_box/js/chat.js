@@ -1,5 +1,5 @@
 // 配置页面路由 'chat'
-var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket,$location) {
+var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(function($rootScope,socket,$location) {
     $rootScope.pageH = document.documentElement.clientHeight-120;
     socket.on('connect',function(){
         // 连接成功
