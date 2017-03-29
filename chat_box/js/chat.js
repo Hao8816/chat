@@ -212,8 +212,14 @@ angular.module('chat').controller(
 
 angular.module('chat').controller(
     'settingsPageController',
-    function settingsPageController($scope, $rootScope, $http) {
+    function settingsPageController($scope, $rootScope, $http, $location) {
         $rootScope.link_index = 3;
+
+        $scope.logout = function(){
+            localStorage.clear();
+            $rootScope.login_status = false;
+            $location.path('/login/')
+        }
 
     }
 );
