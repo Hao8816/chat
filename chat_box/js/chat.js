@@ -229,6 +229,7 @@ angular.module('chat').controller(
     'loginPageController',
     function loginPageController($scope, $rootScope, $http, socket, $location) {
 
+        // 登录功能
         $rootScope.login = function(){
             var username = $scope.username;
             var password = $scope.password;
@@ -256,5 +257,26 @@ angular.module('chat').controller(
     'registerPageController',
     function registerPageController($scope, $rootScope, $http, socket, $location) {
 
+        // 注册功能
+        $rootScope.register = function(){
+            var phone = $scope.phone;
+            var nick = $scope.nick;
+            var password = $scope.password;
+            socket.emit('register',{'nick': nick,'phone':phone, 'password':password})
+        };
+
+        socket.on('register', function(data){
+            console.log("发送注册请求...");
+        });
+
+        socket.on('register_response', function(data){
+            console.log("注册成功",data);
+            var uid = data['uid'];
+            $rootScope.login_status = true;
+            $rootScope.uid = uid;
+            $rootScope.user = data['user'];
+            localStorage.setItem('UID',uid);
+            $location.path('/recently/')
+        });
     }
 );

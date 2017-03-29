@@ -25,6 +25,15 @@ io.on('connection', function(client){
         }
     });
 
+
+    // 处理用户登录消息
+    client.on(MS.REGISTER, function(data){
+        MS.USER_REGISTER(data);
+        client.emit(MS.REGISTER,{'status': 'OK'});
+    });
+
+
+
     // 处理获取好友列表消息
     client.on(MS.CONTACT_LIST, function(data){
         MS.GET_CONTACT_LIST(data);
