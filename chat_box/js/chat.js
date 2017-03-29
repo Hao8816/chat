@@ -1,5 +1,5 @@
 // 配置页面路由 'chat'
-var app_router = angular.module( 'chat' , ['ngRoute']).run(function($rootScope,socket,$location) {
+var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(function($rootScope,socket,$location) {
     $rootScope.pageH = document.documentElement.clientHeight-120;
     socket.on('connect',function(){
         // 连接成功
@@ -212,8 +212,14 @@ angular.module('chat').controller(
 
 angular.module('chat').controller(
     'settingsPageController',
-    function settingsPageController($scope, $rootScope, $http) {
+    function settingsPageController($scope, $rootScope, $http, $location) {
         $rootScope.link_index = 3;
+
+        $scope.logout = function(){
+            localStorage.clear();
+            $rootScope.login_status = false;
+            $location.path('/login/')
+        }
 
     }
 );
