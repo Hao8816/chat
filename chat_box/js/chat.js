@@ -251,3 +251,10 @@ angular.module('chat').controller(
     }
 );
 
+
+angular.module('chat').controller(
+    'registerPageController',
+    function registerPageController($scope, $rootScope, $http, socket, $location) {
+
+    }
+);
