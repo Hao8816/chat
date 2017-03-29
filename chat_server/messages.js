@@ -16,6 +16,8 @@ socket.on('disconnect', function(){});
 var MESSAGES = {
     'LOGIN' : 'login',
     'LOGIN_RES' : 'login_response',
+    'REGISTER' : 'register',
+    'REGISTER_RES' : 'register_response',
     'CONTACT_LIST' : 'contact_list',
     'RECENTLY_LIST' : 'recently_list',
     'RECENTLY_LIST_RES' : 'recently_list_response',
@@ -42,6 +44,22 @@ MESSAGES['USER_LOGIN'] = function(data){
         console.log('登录用户的信息',res);
         console.log(socket.emit);
         socket.emit(MESSAGES.LOGIN_RES,{'status': 'OK','user':res[0],'uid': uid});
+    });
+};
+
+// 用户注册 USER_REGISTER
+MESSAGES['USER_REGISTER'] = function(data){
+    console.log(data);
+    // 查询用户信息是不是正确
+    var uid = data['uid'];
+
+    DB.userModel.create(data, function(error){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log('save ok');
+        }
+        socket.emit(MESSAGES.REGISTER_RES,{'status': 'OK'});
     });
 };
 
