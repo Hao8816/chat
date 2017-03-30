@@ -32,6 +32,9 @@ io.on('connection', function(client){
         client.emit(MS.REGISTER,{'status': 'OK'});
     });
 
+    client.on(MS.REGISTER_RES, function(data){
+        client.emit(MS.REGISTER_RES,{'status': 'OK'});
+    });
 
 
     // 处理获取好友列表消息

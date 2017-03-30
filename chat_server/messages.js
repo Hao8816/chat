@@ -51,9 +51,16 @@ MESSAGES['USER_LOGIN'] = function(data){
 MESSAGES['USER_REGISTER'] = function(data){
     console.log(data);
     // 查询用户信息是不是正确
-    var uid = data['uid'];
+    var email = data['email'];
+    var username = data['nick'];
+    var password = data['password'];
+    var doc = {
+        'email' : email,
+        'username' : username,
+        'password' : password
+    };
 
-    DB.userModel.create(data, function(error){
+    DB.userModel.create(doc, function(error){
         if(error) {
             console.log(error);
         } else {
