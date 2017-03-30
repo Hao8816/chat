@@ -6,6 +6,7 @@ var SOCKETS = {};
 
 io.on('connection', function(client){
     console.log('客户端连接成功');
+    client.emit('connect',{'sid': this.id});
 
     // 处理用户登录消息
     client.on(MS.LOGIN, function(data){
