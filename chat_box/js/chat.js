@@ -259,10 +259,10 @@ angular.module('chat').controller(
 
         // 注册功能
         $rootScope.register = function(){
-            var phone = $scope.phone;
+            var email = $scope.email;
             var nick = $scope.nick;
             var password = $scope.password;
-            socket.emit('register',{'nick': nick,'phone':phone, 'password':password})
+            socket.emit('register',{'nick': nick,'email':email, 'password':password})
         };
 
         socket.on('register', function(data){
