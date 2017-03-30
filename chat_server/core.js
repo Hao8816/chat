@@ -5,11 +5,10 @@ var MS = require('./messages.js');
 var SOCKETS = {};
 
 io.on('connection', function(client){
-    console.log('客户端连接成功');
-    
-    client.on('connect', function(){
-        client.emit('connect',{'sid': this.id});
-    });
+    console.log('客户端连接成功',client.id);
+
+    // 发送socket的id到客户端
+    client.emit('sid',{'sid': client.id});
 
     // 处理用户登录消息
     client.on(MS.LOGIN, function(data){
@@ -37,7 +36,8 @@ io.on('connection', function(client){
     });
 
     client.on(MS.REGISTER_RES, function(data){
-        client.emit(MS.REGISTER_RES,{'status': 'OK'});
+        var sid = data['sid'];
+        io.sockets.connected[sid].emit(MS.REGISTER_RES,data);
     });
 
 

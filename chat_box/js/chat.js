@@ -1,12 +1,19 @@
 // 配置页面路由 'chat'
 var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(function($rootScope,socket,$location) {
     $rootScope.pageH = document.documentElement.clientHeight-120;
-    socket.on('connect',function(data){
+    socket.on('connect',function(){
+        // 连接成功
+        console.log('连接消息服务器成功');
+    });
+    socket.on('sid',function(data){
         // 连接成功
         console.log(data);
         $rootScope.sid = data['sid'];
-        console.log('连接消息服务器成功');
+        console.log('获取服务器段socket的id');
     });
+
+
+
     if (!$rootScope.login_status){
         var local_uid = localStorage.getItem('UID');
         if (local_uid){
@@ -53,8 +60,8 @@ app_router.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app_router.factory('socket', function ($rootScope) {
-    var socket = io('http://www.tihub.cn:3000');
-    //var socket = io('http://127.0.0.1:3000');
+    //var socket = io('http://www.tihub.cn:3000');
+    var socket = io('http://127.0.0.1:3000');
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
@@ -264,7 +271,7 @@ angular.module('chat').controller(
             var email = $scope.email;
             var nick = $scope.nick;
             var password = $scope.password;
-            socket.emit('register',{'nick': nick,'email':email, 'password':password})
+            socket.emit('register',{'nick': nick,'email':email, 'password':password,'sid': $rootScope.sid})
         };
 
         socket.on('register', function(data){
@@ -279,6 +286,7 @@ angular.module('chat').controller(
             $rootScope.user = data['user'];
             localStorage.setItem('UID',uid);
             $location.path('/recently/')
+
         });
     }
 );

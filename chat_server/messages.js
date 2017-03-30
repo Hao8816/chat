@@ -1,5 +1,6 @@
 var DB = require('./models.js');
 var async = require('async');
+var SHA1 = require('sha1');
 
 // 处理客户端消息之后，消息通知客户端
 var socket = require('socket.io-client')('http://127.0.0.1:3000');
@@ -51,22 +52,26 @@ MESSAGES['USER_LOGIN'] = function(data){
 MESSAGES['USER_REGISTER'] = function(data){
     console.log(data);
     // 查询用户信息是不是正确
+    var sid = data['sid'];
     var email = data['email'];
     var username = data['nick'];
     var password = data['password'];
+    var uid = SHA1(username);
     var doc = {
+        'uid':uid,
         'email' : email,
         'username' : username,
         'password' : password
     };
 
-    DB.userModel.create(doc, function(error){
+    DB.userModel.create(doc, function(error, user){
         if(error) {
             console.log(error);
         } else {
             console.log('save ok');
         }
-        socket.emit(MESSAGES.REGISTER_RES,{'status': 'OK'});
+        console.log('用户对象',user);
+        socket.emit(MESSAGES.REGISTER_RES,{'status': 'OK','sid':sid,'uid':uid,'user':user});
     });
 };
 
