@@ -3,6 +3,8 @@ var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(fu
     $rootScope.pageH = document.documentElement.clientHeight-120;
     socket.on('connect',function(data){
         // 连接成功
+        console.log(data);
+        $rootScope.sid = data['sid'];
         console.log('连接消息服务器成功');
     });
     if (!$rootScope.login_status){
