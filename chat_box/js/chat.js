@@ -8,28 +8,34 @@ var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(fu
     socket.on('sid',function(data){
         // 连接成功
         console.log(data);
-        $rootScope.sid = data['sid'];
-        console.log('获取服务器段socket的id');
-        console.log(socket);
+        var sid = data['sid'];
+        $rootScope.sid = sid;
+        if (!$rootScope.login_status){
+            var storage_user = localStorage.getItem('USER');
+            var user = JSON.parse(storage_user);
+            user['sid'] = sid;
+            if (user){
+                socket.emit('login', user);
+                socket.on('login_response', function(data){
+                    if (data['status'] == 'OK'){
+                        console.log("登录成功",data);
+                        // 缓存用户的信息在前端
+                        $rootScope.login_status = true;
+                        var user = data['user'];
+                        $rootScope.user = user;
+                        localStorage.setItem('USER',JSON.stringify(user));
+                        $location.path('/recently/')
+                    }else{
+                        alert(data['info']);
+                    }
+                });
+            }else{
+                $location.path('/login/');
+            }
+        }
     });
 
 
-
-    if (!$rootScope.login_status){
-        var local_uid = localStorage.getItem('UID');
-        if (local_uid){
-            socket.emit('login',{'uid': local_uid})
-            socket.on('login_response', function(data){
-                console.log("登录成功",data);
-                var uid = data['uid'];
-                $rootScope.login_status = true;
-                $rootScope.uid = uid;
-                $rootScope.user = data['user'];
-            });
-        }else{
-            $location.path('/login/');
-        }
-    }
     socket.on('disconnect', function(){});
 });
 
@@ -253,11 +259,10 @@ angular.module('chat').controller(
         socket.on('login_response', function(data){
             if (data['status'] == 'OK'){
                 console.log("登录成功",data);
-                var uid = data['uid'];
                 $rootScope.login_status = true;
-                $rootScope.uid = uid;
-                $rootScope.user = data['user'];
-                localStorage.setItem('UID',uid);
+                var user = data['user'];
+                $rootScope.user = user;
+                localStorage.setItem('USER',JSON.stringify(user));
                 $location.path('/recently/');
             }else{
                 alert(data['info']);
@@ -286,11 +291,11 @@ angular.module('chat').controller(
         socket.on('register_response', function(data){
             if (data['status'] == 'OK'){
                 console.log("注册成功",data);
-                var uid = data['uid'];
+                // 缓存用户的信息在前端
                 $rootScope.login_status = true;
-                $rootScope.uid = uid;
-                $rootScope.user = data['user'];
-                localStorage.setItem('UID',uid);
+                var user = data['user'];
+                $rootScope.user = user;
+                localStorage.setItem('USER',JSON.stringify(user));
                 $location.path('/recently/')
             }else{
                 alert(data['info']);
