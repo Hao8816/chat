@@ -13,16 +13,13 @@ io.on('connection', function(client){
     // 处理用户登录消息
     client.on(MS.LOGIN, function(data){
         MS.USER_LOGIN(data);
-        var uid = data['uid'];
-        SOCKETS[uid] = this.id;
-        client.emit(MS.LOGIN,{'status': 'OK','uid': uid});
+        client.emit(MS.LOGIN,{'status': 'OK'});
     });
     client.on(MS.LOGIN_RES, function(data){
         // 消息传递，解析用户信息，发送信息到客户段
-        var uid = data['uid'];
+        var sid = data['sid'];
         try {
-            var socket_id = SOCKETS[uid];
-            io.sockets.connected[socket_id].emit(MS.LOGIN_RES,data);
+            io.sockets.connected[sid].emit(MS.LOGIN_RES,data);
         }catch (err){
             console.log('++++'+err)
         }
