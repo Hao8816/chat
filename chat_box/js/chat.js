@@ -10,6 +10,7 @@ var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(fu
         console.log(data);
         $rootScope.sid = data['sid'];
         console.log('获取服务器段socket的id');
+        console.log(socket);
     });
 
 
@@ -242,7 +243,7 @@ angular.module('chat').controller(
         $rootScope.login = function(){
             var username = $scope.username;
             var password = $scope.password;
-            socket.emit('login',{'uid': username,'password':password})
+            socket.emit('login',{'username': username,'password':password,'sid':$rootScope.sid})
         };
 
         socket.on('login', function(data){
@@ -250,13 +251,17 @@ angular.module('chat').controller(
         });
 
         socket.on('login_response', function(data){
-            console.log("登录成功",data);
-            var uid = data['uid'];
-            $rootScope.login_status = true;
-            $rootScope.uid = uid;
-            $rootScope.user = data['user'];
-            localStorage.setItem('UID',uid);
-            $location.path('/recently/')
+            if (data['status'] == 'OK'){
+                console.log("登录成功",data);
+                var uid = data['uid'];
+                $rootScope.login_status = true;
+                $rootScope.uid = uid;
+                $rootScope.user = data['user'];
+                localStorage.setItem('UID',uid);
+                $location.path('/recently/');
+            }else{
+                alert(data['info']);
+            }
         });
     }
 );
@@ -271,7 +276,7 @@ angular.module('chat').controller(
             var email = $scope.email;
             var nick = $scope.nick;
             var password = $scope.password;
-            socket.emit('register',{'nick': nick,'email':email, 'password':password,'sid': $rootScope.sid})
+            socket.emit('register',{'nick': nick,'email':email, 'password':password,'sid':$rootScope.sid});
         };
 
         socket.on('register', function(data){
@@ -279,14 +284,17 @@ angular.module('chat').controller(
         });
 
         socket.on('register_response', function(data){
-            console.log("注册成功",data);
-            var uid = data['uid'];
-            $rootScope.login_status = true;
-            $rootScope.uid = uid;
-            $rootScope.user = data['user'];
-            localStorage.setItem('UID',uid);
-            $location.path('/recently/')
-
+            if (data['status'] == 'OK'){
+                console.log("注册成功",data);
+                var uid = data['uid'];
+                $rootScope.login_status = true;
+                $rootScope.uid = uid;
+                $rootScope.user = data['user'];
+                localStorage.setItem('UID',uid);
+                $location.path('/recently/')
+            }else{
+                alert(data['info']);
+            }
         });
     }
 );

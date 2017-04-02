@@ -32,30 +32,39 @@ var MESSAGES = {
 // 登录消息  LOGIN
 // 登录响应  LOGIN_RES
 MESSAGES['USER_LOGIN'] = function(data){
-    console.log(data);
     // 查询用户信息是不是正确
-    var uid = data['uid'];
-    DB.userModel.getUser(uid,function(err,res){
+    var username = data['username'];
+    var password = data['password'];
+    var sid = data['sid'];
+    var result = {'sid':sid};
+    DB.userModel.findOne({'username':username,'password':password}).exec(function(err,res){
         if (err){
-            console.log(err);
-            return
+            result['status'] = 'ERROR';
+            result['info'] = err;
+            socket.emit(MESSAGES.LOGIN_RES,result);
+            return;
         }
         // 处理用户信息
-
         console.log('登录用户的信息',res);
-        console.log(socket.emit);
-        socket.emit(MESSAGES.LOGIN_RES,{'status': 'OK','user':res[0],'uid': uid});
+        if (res){
+            result['status'] = 'OK';
+            result['user'] = res;
+        }else{
+            result['status'] = 'ERROR';
+            result['info'] = '用户名或者密码错误';
+        }
+        socket.emit(MESSAGES.LOGIN_RES,result);
     });
 };
 
 // 用户注册 USER_REGISTER
 MESSAGES['USER_REGISTER'] = function(data){
-    console.log(data);
     // 查询用户信息是不是正确
-    var sid = data['sid'];
     var email = data['email'];
     var username = data['nick'];
     var password = data['password'];
+    var sid = data['sid'];
+    var result = {'sid':sid};
     var uid = SHA1(username);
     var doc = {
         'uid':uid,
@@ -64,15 +73,35 @@ MESSAGES['USER_REGISTER'] = function(data){
         'password' : password
     };
 
-    DB.userModel.create(doc, function(error, user){
-        if(error) {
-            console.log(error);
-        } else {
-            console.log('save ok');
+    // 检查用户名是否有重复，或者邮箱已经被注册
+    DB.userModel.findOne({ $or: [ {'email': email}, { 'username': username } ] }).exec(function(err,res){
+        if (err){
+            result['status'] = 'ERROR';
+            result['info'] = err;
+            socket.emit(MESSAGES.REGISTER_RES,result);
+            return;
         }
-        console.log('用户对象',user);
-        socket.emit(MESSAGES.REGISTER_RES,{'status': 'OK','sid':sid,'uid':uid,'user':user});
+        if(res){
+            result['status'] = 'ERROR';
+            result['info'] = '邮箱或者用户名已经被占用';
+            socket.emit(MESSAGES.REGISTER_RES,result);
+        }else{
+            // 创建用户信息
+            DB.userModel.create(doc, function(err, user){
+                if(err) {
+                    result['status'] = 'ERROR';
+                    result['info'] = err;
+                    socket.emit(MESSAGES.REGISTER_RES,result);
+                    return;
+                }
+                result['status'] = 'OK';
+                result['user'] = user;
+                socket.emit(MESSAGES.REGISTER_RES,result);
+            });
+        }
     });
+
+
 };
 
 
