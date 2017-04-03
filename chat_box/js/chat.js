@@ -5,36 +5,28 @@ var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(fu
         // 连接成功
         console.log('连接消息服务器成功');
     });
-    socket.on('sid',function(data){
-        // 连接成功
-        console.log(data);
-        var sid = data['sid'];
-        $rootScope.sid = sid;
-        if (!$rootScope.login_status){
-            var storage_user = localStorage.getItem('USER');
-            var user = JSON.parse(storage_user);
-            user['sid'] = sid;
-            if (user){
-                socket.emit('login', user);
-                socket.on('login_response', function(data){
-                    if (data['status'] == 'OK'){
-                        console.log("登录成功",data);
-                        // 缓存用户的信息在前端
-                        $rootScope.login_status = true;
-                        var user = data['user'];
-                        $rootScope.user = user;
-                        localStorage.setItem('USER',JSON.stringify(user));
-                        $location.path('/recently/')
-                    }else{
-                        alert(data['info']);
-                    }
-                });
-            }else{
-                $location.path('/login/');
-            }
+    if (!$rootScope.login_status){
+        var storage_user = localStorage.getItem('USER');
+        var user = JSON.parse(storage_user);
+        if (user){
+            socket.emit('login', user);
+            socket.on('login_response', function(data){
+                if (data['status'] == 'OK'){
+                    console.log("登录成功",data);
+                    // 缓存用户的信息在前端
+                    $rootScope.login_status = true;
+                    var user = data['user'];
+                    $rootScope.user = user;
+                    localStorage.setItem('USER',JSON.stringify(user));
+                    $location.path('/recently/')
+                }else{
+                    alert(data['info']);
+                }
+            });
+        }else{
+            $location.path('/login/');
         }
-    });
-
+    }
 
     socket.on('disconnect', function(){});
 });
@@ -249,7 +241,7 @@ angular.module('chat').controller(
         $rootScope.login = function(){
             var username = $scope.username;
             var password = $scope.password;
-            socket.emit('login',{'username': username,'password':password,'sid':$rootScope.sid})
+            socket.emit('login',{'username': username,'password':password})
         };
 
         socket.on('login', function(data){
@@ -281,7 +273,7 @@ angular.module('chat').controller(
             var email = $scope.email;
             var nick = $scope.nick;
             var password = $scope.password;
-            socket.emit('register',{'nick': nick,'email':email, 'password':password,'sid':$rootScope.sid});
+            socket.emit('register',{'nick': nick,'email':email, 'password':password});
         };
 
         socket.on('register', function(data){

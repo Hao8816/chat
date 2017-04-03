@@ -31,11 +31,10 @@ var MESSAGES = {
 
 // 登录消息  LOGIN
 // 登录响应  LOGIN_RES
-MESSAGES['USER_LOGIN'] = function(data){
+MESSAGES['USER_LOGIN'] = function(sid, data){
     // 查询用户信息是不是正确
     var username = data['username'];
     var password = data['password'];
-    var sid = data['sid'];
     var result = {'sid':sid};
     DB.userModel.findOne({'username':username,'password':password}).exec(function(err,res){
         if (err){
@@ -58,12 +57,11 @@ MESSAGES['USER_LOGIN'] = function(data){
 };
 
 // 用户注册 USER_REGISTER
-MESSAGES['USER_REGISTER'] = function(data){
+MESSAGES['USER_REGISTER'] = function(sid, data){
     // 查询用户信息是不是正确
     var email = data['email'];
     var username = data['nick'];
     var password = data['password'];
-    var sid = data['sid'];
     var result = {'sid':sid};
     var uid = SHA1(username);
     var doc = {
@@ -107,7 +105,7 @@ MESSAGES['USER_REGISTER'] = function(data){
 
 // 获取好友列表  CONTACT_LIST
 // 获取好友列表响应  CONTACT_LIST_RES
-MESSAGES['GET_CONTACT_LIST'] = function(data){
+MESSAGES['GET_CONTACT_LIST'] = function(sid, data){
     var uid = data['uid'];
     async.waterfall([
         function(callback){
@@ -150,7 +148,7 @@ MESSAGES['GET_CONTACT_LIST'] = function(data){
         }
     ], function (err, result) {
         console.log('查询好友列表成功');
-        socket.emit(MESSAGES.CONTACT_LIST_RES,{'status': 'OK','contacts':result,'uid': uid});
+        socket.emit(MESSAGES.CONTACT_LIST_RES,{'status': 'OK','contacts':result,'uid': uid,'sid':sid});
     });
 };
 
@@ -158,7 +156,7 @@ MESSAGES['GET_CONTACT_LIST'] = function(data){
 
 // 最近聊天   RECENTLY_LIST
 // 最近聊天响应  RECENTLY_LIST_RES
-MESSAGES['GET_RECENTLY_LIST'] = function(data){
+MESSAGES['GET_RECENTLY_LIST'] = function(sid, data){
     var uid = data['uid'];
     async.waterfall([
         function(callback){
@@ -201,7 +199,7 @@ MESSAGES['GET_RECENTLY_LIST'] = function(data){
         }
     ], function (err, result) {
         console.log('查询好友列表成功');
-        socket.emit(MESSAGES.RECENTLY_LIST_RES,{'status': 'OK','recent_list':result,'uid': uid});
+        socket.emit(MESSAGES.RECENTLY_LIST_RES,{'status': 'OK','recent_list':result,'uid': uid,'sid':sid});
     });
 };
 
