@@ -25,7 +25,9 @@ var MESSAGES = {
     'CHAT_MESSAGE' : 'chat_message',
     'CONTACT_LIST_RES' : 'contact_list_response',
     'MESSAGE_LIST' : 'message_list',
-    'MESSAGE_LIST_RES' : 'message_list_response'
+    'MESSAGE_LIST_RES' : 'message_list_response',
+    'ADD_CONTACT': 'add_contact',
+    'ADD_CONTACT_RES': 'add_contact_response'
 
 };
 
@@ -98,8 +100,6 @@ MESSAGES['USER_REGISTER'] = function(sid, data){
             });
         }
     });
-
-
 };
 
 
@@ -224,6 +224,30 @@ MESSAGES['GET_MESSAGE_LIST'] = function(data){
         // 消息列表
         var message_list = res;
         socket.emit(MESSAGES.MESSAGE_LIST_RES,{'status': 'OK','message_list':message_list,'uid': uid_1});
+    });
+
+};
+
+MESSAGES['USER_ADD_CONTACT'] = function(sid, data){
+    var uid_1 = data['uid_1'];
+    var uid_2 = data['uid_2'];
+    // 比较uid_1和uid_2的大小，小的为1，大的为2
+    var from,to;
+    if (uid_1>uid_2){
+        from = uid_1;
+        to = uid_2
+    }else{
+        from = uid_1;
+        to = uid_2
+    }
+    DB.relationModel.find({'from': from, 'to': to }).exec(function(err,res){
+        if (err){
+            console.log(err);
+            return
+        }
+        // 消息列表
+        var message_list = res;
+        socket.emit(MESSAGES.ADD_CONTACT_RES,{'status': 'OK','message_list':message_list,'uid': uid_1});
     });
 
 };

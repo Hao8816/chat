@@ -1,5 +1,6 @@
 var server = require('http').createServer();
 var io = require('socket.io')(server);
+var SHA1 = require('sha1');
 
 var MS = require('./messages.js');
 var SOCKETS = {};
@@ -9,6 +10,9 @@ io.on('connection', function(client){
 
     // 处理用户登录消息
     client.on(MS.LOGIN, function(data){
+        var username = data['username'];
+        var uid = SHA1(username);
+        SOCKETS[uid] = client.id;
         MS.USER_LOGIN(client.id, data);
         client.emit(MS.LOGIN,{'status': 'OK'});
     });
@@ -103,6 +107,12 @@ io.on('connection', function(client){
         // 消息存储
         MS.SAVE_CHAT_MESSAGE(data);
     });
+
+    // 好友请求
+    client.on(MS.ADD_CONTACT, function(data){
+        MS.USER_ADD_CONTACT(client.id, data);
+    });
+
 
     client.on('disconnect', function(){});
 });
