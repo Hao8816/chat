@@ -25,17 +25,18 @@ var MESSAGES = {
     'CHAT_MESSAGE' : 'chat_message',
     'CONTACT_LIST_RES' : 'contact_list_response',
     'MESSAGE_LIST' : 'message_list',
-    'MESSAGE_LIST_RES' : 'message_list_response'
+    'MESSAGE_LIST_RES' : 'message_list_response',
+    'ADD_CONTACT': 'add_contact',
+    'ADD_CONTACT_RES': 'add_contact_response'
 
 };
 
 // 登录消息  LOGIN
 // 登录响应  LOGIN_RES
-MESSAGES['USER_LOGIN'] = function(data){
+MESSAGES['USER_LOGIN'] = function(sid, data){
     // 查询用户信息是不是正确
     var username = data['username'];
     var password = data['password'];
-    var sid = data['sid'];
     var result = {'sid':sid};
     DB.userModel.findOne({'username':username,'password':password}).exec(function(err,res){
         if (err){
@@ -58,12 +59,11 @@ MESSAGES['USER_LOGIN'] = function(data){
 };
 
 // 用户注册 USER_REGISTER
-MESSAGES['USER_REGISTER'] = function(data){
+MESSAGES['USER_REGISTER'] = function(sid, data){
     // 查询用户信息是不是正确
     var email = data['email'];
     var username = data['nick'];
     var password = data['password'];
-    var sid = data['sid'];
     var result = {'sid':sid};
     var uid = SHA1(username);
     var doc = {
@@ -100,14 +100,12 @@ MESSAGES['USER_REGISTER'] = function(data){
             });
         }
     });
-
-
 };
 
 
 // 获取好友列表  CONTACT_LIST
 // 获取好友列表响应  CONTACT_LIST_RES
-MESSAGES['GET_CONTACT_LIST'] = function(data){
+MESSAGES['GET_CONTACT_LIST'] = function(sid, data){
     var uid = data['uid'];
     async.waterfall([
         function(callback){
@@ -150,7 +148,7 @@ MESSAGES['GET_CONTACT_LIST'] = function(data){
         }
     ], function (err, result) {
         console.log('查询好友列表成功');
-        socket.emit(MESSAGES.CONTACT_LIST_RES,{'status': 'OK','contacts':result,'uid': uid});
+        socket.emit(MESSAGES.CONTACT_LIST_RES,{'status': 'OK','contacts':result,'uid': uid,'sid':sid});
     });
 };
 
@@ -158,7 +156,7 @@ MESSAGES['GET_CONTACT_LIST'] = function(data){
 
 // 最近聊天   RECENTLY_LIST
 // 最近聊天响应  RECENTLY_LIST_RES
-MESSAGES['GET_RECENTLY_LIST'] = function(data){
+MESSAGES['GET_RECENTLY_LIST'] = function(sid, data){
     var uid = data['uid'];
     async.waterfall([
         function(callback){
@@ -201,7 +199,7 @@ MESSAGES['GET_RECENTLY_LIST'] = function(data){
         }
     ], function (err, result) {
         console.log('查询好友列表成功');
-        socket.emit(MESSAGES.RECENTLY_LIST_RES,{'status': 'OK','recent_list':result,'uid': uid});
+        socket.emit(MESSAGES.RECENTLY_LIST_RES,{'status': 'OK','recent_list':result,'uid': uid,'sid':sid});
     });
 };
 
@@ -226,6 +224,30 @@ MESSAGES['GET_MESSAGE_LIST'] = function(data){
         // 消息列表
         var message_list = res;
         socket.emit(MESSAGES.MESSAGE_LIST_RES,{'status': 'OK','message_list':message_list,'uid': uid_1});
+    });
+
+};
+
+MESSAGES['USER_ADD_CONTACT'] = function(sid, data){
+    var uid_1 = data['uid_1'];
+    var uid_2 = data['uid_2'];
+    // 比较uid_1和uid_2的大小，小的为1，大的为2
+    var from,to;
+    if (uid_1>uid_2){
+        from = uid_1;
+        to = uid_2
+    }else{
+        from = uid_1;
+        to = uid_2
+    }
+    DB.relationModel.find({'from': from, 'to': to }).exec(function(err,res){
+        if (err){
+            console.log(err);
+            return
+        }
+        // 消息列表
+        var message_list = res;
+        socket.emit(MESSAGES.ADD_CONTACT_RES,{'status': 'OK','message_list':message_list,'uid': uid_1});
     });
 
 };

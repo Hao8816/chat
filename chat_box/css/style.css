@@ -331,17 +331,17 @@ body{
     color: #fff;
 }
 
-input[placeholder]{
+.login-form input[placeholder]{
     color:#fff !important;
 }
 
-input::-webkit-input-placeholder { /* WebKit browsers */
+.login-form input::-webkit-input-placeholder { /* WebKit browsers */
     color:rgba(255,255,255,0.5);
 }
-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+.login-form input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color:rgba(255,255,255,0.5);
 }
-input:-ms-input-placeholder { /* Internet Explorer 10+ */
+.login-form input:-ms-input-placeholder { /* Internet Explorer 10+ */
     color:rgba(255,255,255,0.5);
 }
 
