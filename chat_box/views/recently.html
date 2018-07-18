@@ -4,7 +4,7 @@
         <ul class="contact-items">
             <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
                 <div class="avatar-wrapper">
-                    <img class="image" src="{{contact.avatar}}" alt=""/>
+                    <img class="image" ng-src="{{contact.avatar}}" alt=""/>
                 </div>
                 <div>
                     <div class="name">{{contact.username}}</div>
@@ -20,7 +20,7 @@
 <div class="message-wrapper" style="flex: 1">
     <div style="background-color: #EFF4F8;height: 600px;">
         <div class="message-title">
-            <img class="image" src="{{current.avatar}}" alt=""/>
+            <img class="image" ng-src="{{current.avatar}}" alt=""/>
             <div class="name">{{current.username}}</div>
         </div>
         <div scroll-glue class="message-content" style="height: 490px;overflow-y: scroll">
