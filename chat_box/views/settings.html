@@ -1,5 +1,31 @@
-<div style="width:100%;background-color:#fff;height: {{pageH}}px">
+<div style="width:100%;background-color:#fff;height: 600px">
     <div class="title-wrapper">我的设置</div>
-    <a ng-click="logout()">退出登录</a>
+    <div style="padding: 20px">
+        <div>
+            <img ng-src="http://img1.2345.com/duoteimg/qqTxImg/2/78d4ee9b26cf134b72e6204fba2415f6.jpg" alt="">
+        </div>
+        <div>
+            <span>用户名</span>
+            <span>{{user.username}}</span>
+        </div>
+        <div>
+            <span>性别</span>
+            <span>{{user.sex}}</span>
+        </div>
+        <div>
+            <span>注册时间</span>
+            <span>{{user.time}}</span>
+        </div>
+        <div>
+            <span>生日</span>
+            <span>{{user.birthday}}</span>
+        </div>
+        <div>
+            <span>邮箱</span>
+            <span>{{user.email}}</span>
+        </div>
+        <a class="btn" ng-click="logout()">退出登录</a>
+    </div>
+
 </div>
        

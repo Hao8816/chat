@@ -95,7 +95,7 @@ io.on('connection', function(client){
     client.on(MS.CHAT_MESSAGE, function(data){
         // 消息转发
         console.log(data);
-        var uid = data['to'];
+        var uid = SHA1(data['to']);
         try {
             var socket_id = SOCKETS[uid];
             console.log('消息传递id',socket_id,SOCKETS);

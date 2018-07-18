@@ -107,6 +107,7 @@ MESSAGES['USER_REGISTER'] = function(sid, data){
 // 获取好友列表响应  CONTACT_LIST_RES
 MESSAGES['GET_CONTACT_LIST'] = function(sid, data){
     var uid = data['uid'];
+    console.log('当前用户的id是:',uid)
     async.waterfall([
         function(callback){
             DB.relationModel.find({ $or: [ {'uid_1': uid}, { 'uid_2': uid } ] }).exec(function(err,res){

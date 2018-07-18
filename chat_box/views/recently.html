@@ -1,5 +1,5 @@
 <div class="contacts-wrapper">
-    <div class="contact-list" style="width: 260px;border-right: 1px solid #ddd;height: {{pageH}}px">
+    <div class="contact-list" style="width: 260px;border-right: 1px solid #ddd;height: 600px">
         <div class="title-wrapper">最近聊天</div>
         <ul class="contact-items">
             <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
@@ -18,16 +18,16 @@
     </div>
 </div>
 <div class="message-wrapper" style="flex: 1">
-    <div style="background-color: #EFF4F8;height: {{pageH}}px;">
+    <div style="background-color: #EFF4F8;height: 600px;">
         <div class="message-title">
             <img class="image" src="{{current.avatar}}" alt=""/>
             <div class="name">{{current.username}}</div>
         </div>
-        <div scroll-glue class="message-content" style="height: {{pageH-110}}px;overflow-y: scroll">
-            <div class="message-item message-{{uid==message.to?'left':'right'}}" ng-repeat="message in message_list">
+        <div scroll-glue class="message-content" style="height: 490px;overflow-y: scroll">
+            <div class="message-item message-{{user.username==message.to?'left':'right'}}" ng-repeat="message in message_list">
                 <div class="image">
-                    <img ng-if="uid==message.to" src="{{current.avatar}}" alt="">
-                    <img ng-if="uid==message.from" src="{{user.avatar}}" alt="">
+                    <img ng-if="user.username==message.to" src="{{current.avatar}}" alt="">
+                    <img ng-if="user.username==message.from" src="{{user.avatar}}" alt="">
                 </div>
                 <div class="content">{{message.content}}</div>
                 <div class="time">{{message.time | date :'HH:mm'}}</div>

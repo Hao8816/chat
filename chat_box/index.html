@@ -6,9 +6,10 @@
     <link rel="shortcut icon" href="images/favicon.ico"/>
     <link rel="bookmark" href="images/favicon.ico"/>
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="height: {{pageH}}px">
+<body>
 <div class="banner">
     <svg style="float: left" version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
         <path fill="#fff" d="M23.805 27.242c1.805-0.516 2.836-1.891 3.438-3.438h13.063c-0.859 8.68-7.305 15.641-16.5 16.5v-13.063zM27.242 20.195c-0.602-1.547-1.633-2.922-3.438-3.438v-13.063c9.195 0.859 15.641 7.82 16.5 16.5h-13.063zM20.195 16.758c-1.805 0.773-3.695 2.836-3.695 5.242s1.891 4.469 3.695 5.242v13.063c-9.195-0.945-16.5-8.766-16.5-18.305s7.305-17.359 16.5-18.305v13.063z"></path>
@@ -16,7 +17,7 @@
     <span style="font-size: 24px;color: #eee;display: inline-block;padding: 10px;font-weight: lighter">Chat</span>
 </div>
 <div class="chat_wrapper">
-    <div class="left_wrapper" ng-cloak ng-if="login_status" style="height: {{pageH}}px">
+    <div class="left_wrapper" ng-cloak ng-if="login_status" style="height: 600px">
         <div class="avatar">
             <img class="image" src="{{user.avatar}}" alt="">
             <div class="name" ng-bind="user.username"></div>

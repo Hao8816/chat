@@ -390,3 +390,17 @@ body{
     top: 15px;
 
 }
+.btn{
+    display: inline-block;
+    border: 1px solid #0ba360;
+    background-color: #fff;
+    color: #666;
+    font-size: 13px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #0ba360;
+    color: #fff;
+}
