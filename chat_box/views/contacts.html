@@ -8,9 +8,9 @@
         <ul class="contact-items">
             <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
                 <div class="avatar-wrapper">
-                    <img class="image" src="{{contact.avatar}}" alt=""/>
+                    <img class="image" ng-src="{{contact.avatar||default_avatar}}" alt=""/>
                 </div>
-                <div>
+                <div ng-click="addContact(this)">
                     <div class="name">{{contact.username}}</div>
                     <div>
                         <span class="message">{{contact.message}}</span>
@@ -24,7 +24,7 @@
 <div class="blog-wrapper" style="width: 320px;text-align: center;">
     <div style="background-color: #fff;height: 600px;">
         <div>
-            <img style="border-radius: 100%;margin-top: 30px" width="120" height="120" class="image" src="{{current.avatar}}" alt=""/>
+            <img style="border-radius: 100%;margin-top: 30px" width="120" height="120" class="image" ng-src="{{current.avatar||default_avatar}}" alt=""/>
         </div>
         <div style="text-align: left;padding: 15px;font-size: 13px">
             <div class="name" style="font-size: 18px;padding: 10px 0px">{{current.username}}</div>

@@ -138,7 +138,7 @@ MESSAGES['GET_CONTACT_LIST'] = function(sid, data){
             // 去重处理
 
             // 查询批量用户的详细信息
-            DB.userModel.find({ $or:[{ uid: { $in: uids} },{'name': {'$regex': keyword}}]}).exec(function(err,res){
+            DB.userModel.find({ $or:[{ uid: { $in: uids} },{'username': {'$regex': keyword}}]}).exec(function(err,res){
                 if (err){
                     console.log(err);
                     return
@@ -242,14 +242,19 @@ MESSAGES['USER_ADD_CONTACT'] = function(sid, data){
         from = uid_1;
         to = uid_2
     }
-    DB.relationModel.find({'from': from, 'to': to }).exec(function(err,res){
+    DB.relationModel.find({'uid_1': from, 'uid_2': to }).exec(function(err,res){
         if (err){
             console.log(err);
             return
         }
-        // 消息列表
-        var message_list = res;
-        socket.emit(MESSAGES.ADD_CONTACT_RES,{'status': 'OK','message_list':message_list,'uid': uid_1});
+        DB.relationModel.create({'uid_1': from, 'uid_2': to }, function(error){
+            if(error) {
+                console.log(error);
+            } else {
+                console.log('save ok');
+            }
+        });
+        //socket.emit(MESSAGES.ADD_CONTACT_RES,{'status': 'OK','message_list':message_list,'uid': uid_1});
     });
 
 };

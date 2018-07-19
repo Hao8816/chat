@@ -229,7 +229,11 @@ angular.module('chat').controller(
             }
             // 执行搜索操作
             socket.emit('contact_list',{'uid':user.uid,'keyword': keyword});
+        };
 
+        // 添加好友
+        $scope.addContact = function(obj){
+            socket.emit('add_contact',{'uid_1':user.uid,'uid_2':obj.contact.uid});
         }
 
     }
