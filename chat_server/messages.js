@@ -135,10 +135,14 @@ MESSAGES['GET_CONTACT_LIST'] = function(sid, data){
             });
         },
         function(uids, callback){
-            // 去重处理
+            // 检查keyword
+            var filters = {$or:[{ uid: { $in: uids} }]};
+            if (keyword){
+                filters['$or'].push({'username': {'$regex': keyword}})
+            }
 
             // 查询批量用户的详细信息
-            DB.userModel.find({ $or:[{ uid: { $in: uids} },{'username': {'$regex': keyword}}]}).exec(function(err,res){
+            DB.userModel.find(filters).exec(function(err,res){
                 if (err){
                     console.log(err);
                     return

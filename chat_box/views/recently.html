@@ -4,7 +4,7 @@
         <ul class="contact-items">
             <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
                 <div class="avatar-wrapper">
-                    <img class="image" ng-src="{{contact.avatar}}" alt=""/>
+                    <img class="image" ng-src="{{contact.avatar||default_avatar}}" alt=""/>
                 </div>
                 <div>
                     <div class="name">{{contact.username}}</div>
