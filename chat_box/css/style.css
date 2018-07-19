@@ -6,7 +6,7 @@ body{
 .chat_wrapper{
     display: flex;
     min-height: 500px;
-    width: 80%;
+    /*width: 80%;*/
     margin: auto;
     /*min-width: 1000px;*/
 }
