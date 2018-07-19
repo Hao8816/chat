@@ -20,7 +20,7 @@
 <div class="message-wrapper" style="flex: 1">
     <div style="background-color: #EFF4F8;height: 600px;">
         <div class="message-title">
-            <img class="image" ng-src="{{current.avatar}}" alt=""/>
+            <img class="image" ng-src="{{current.avatar||default_avatar}}" alt=""/>
             <div class="name">{{current.username}}</div>
         </div>
         <div scroll-glue class="message-content" style="height: 490px;overflow-y: scroll">

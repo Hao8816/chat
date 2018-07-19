@@ -107,6 +107,7 @@ MESSAGES['USER_REGISTER'] = function(sid, data){
 // 获取好友列表响应  CONTACT_LIST_RES
 MESSAGES['GET_CONTACT_LIST'] = function(sid, data){
     var uid = data['uid'];
+    var keyword = data['keyword'];
     console.log('当前用户的id是:',uid)
     async.waterfall([
         function(callback){
@@ -137,12 +138,12 @@ MESSAGES['GET_CONTACT_LIST'] = function(sid, data){
             // 去重处理
 
             // 查询批量用户的详细信息
-            DB.userModel.find({ uid: { $in: uids} }).exec(function(err,res){
+            DB.userModel.find({ $or:[{ uid: { $in: uids} },{'name': {'$regex': keyword}}]}).exec(function(err,res){
                 if (err){
                     console.log(err);
                     return
                 }
-                console.log('好友列表详情');
+                console.log('好友列表详情',res);
                 var contacts = res;
                 callback(null, contacts);
             });

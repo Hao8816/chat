@@ -19,7 +19,7 @@
 <div class="chat_wrapper">
     <div class="left_wrapper" ng-cloak ng-if="login_status" style="height: 600px">
         <div class="avatar">
-            <img class="image" src="{{user.avatar}}" alt="">
+            <img class="image" src="{{user.avatar||default_avatar}}" alt="">
             <div class="name" ng-bind="user.username"></div>
         </div>
         <ul class="links">
