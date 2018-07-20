@@ -6,7 +6,7 @@ body{
 .chat_wrapper{
     display: flex;
     min-height: 500px;
-    /*width: 80%;*/
+    width: 80%;
     margin: auto;
     /*min-width: 1000px;*/
 }
@@ -347,7 +347,7 @@ body{
 
 
 .login-form{
-    width: 300px;
+    width: 320px;
     margin: 100px auto;
 }
 
@@ -380,10 +380,6 @@ body{
     background-color: #fff;
     z-index: 100;
 }
-/*.login-page .login-form{*/
-    /*width: 320px;*/
-    /*margin: 100px auto;*/
-/*}*/
 .banner{
     position: absolute;
     left: 2%;
