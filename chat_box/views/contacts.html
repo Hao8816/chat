@@ -6,7 +6,7 @@
             <input class="search-input" ng-model="search_contacts" style="color: #333" type="text" placeholder="搜索好友" ng-enter="searchContacts()"/>
         </div>
         <ul class="contact-items">
-            <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
+            <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts|filter:search_contacts">
                 <div class="avatar-wrapper">
                     <img class="image" ng-src="{{contact.avatar||default_avatar}}" alt=""/>
                 </div>
@@ -21,22 +21,30 @@
         </ul>
     </div>
 </div>
-<div class="blog-wrapper" style="width: 320px;text-align: center;">
+<div class="blog-wrapper" style="width: 240px;text-align: center;">
     <div style="background-color: #fff;height: 600px;">
         <div>
             <img style="border-radius: 100%;margin-top: 30px" width="120" height="120" class="image" ng-src="{{current.avatar||default_avatar}}" alt=""/>
         </div>
         <div style="text-align: left;padding: 15px;font-size: 13px">
-            <div class="name" style="font-size: 18px;padding: 10px 0px">{{current.username}}</div>
-            <div><span>性别: {{current.sex}}</span></div>
-            <div><span>邮箱: {{current.email}}</span></div>
-            <div><span>注册时间: {{current.time | date:'yyyy-MM-dd'}}</span></div>
-            <div><span>个人说明: {{current.desc}}</span></div>
+            <div class="name" ng-cloak style="font-size: 18px;padding: 10px 0px">{{current.username}}</div>
+            <div class="details-item" ng-cloak><span>性别：{{current.sex||'未设置'}}</span></div>
+            <div class="details-item" ng-cloak><span>邮箱：{{current.email}}</span></div>
+            <div class="details-item" ng-cloak><span>注册时间：{{current.time | date:'yyyy-MM-dd'}}</span></div>
+            <div class="details-item" ng-cloak><span>个人说明：{{current.desc}}</span></div>
         </div>
     </div>
 </div>
 <div class="message-wrapper" style="flex: 1">
     <div style="background-color: #EFF4F8;height: 600px;">
-        最近聊天记录
+        <div style="padding: 10px;font-size: 14px;">聊天记录</div>
+        <div style="padding: 10px">
+            <div class="message-item" ng-repeat="message in messages">
+                {{message}}
+            </div>
+            <div ng-if="messages.length==0" style="text-align: center;padding: 60px;color: #999">
+                暂无聊天记录
+            </div>
+        </div>
     </div>
 </div>

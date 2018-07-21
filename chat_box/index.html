@@ -18,9 +18,9 @@
     <span style="font-size: 24px;color: #eee;display: inline-block;padding: 10px;font-weight: lighter">Chat</span>
 </div>
 <div class="chat_wrapper">
-    <div class="left_wrapper" ng-cloak ng-if="login_status" style="height: 600px">
+    <div class="left_wrapper" ng-cloak ng-if="login_status" style="height: 600px;min-width: 70px;">
         <div class="avatar">
-            <img class="image" src="{{user.avatar||default_avatar}}" alt="">
+            <img class="image" ng-src="{{user.avatar||default_avatar}}" alt="">
             <div class="name" ng-bind="user.username"></div>
         </div>
         <ul class="links">

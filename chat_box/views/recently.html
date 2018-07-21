@@ -26,8 +26,8 @@
         <div scroll-glue class="message-content" style="height: 490px;overflow-y: scroll">
             <div class="message-item message-{{user.username==message.to?'left':'right'}}" ng-repeat="message in message_list">
                 <div class="image">
-                    <img ng-if="user.username==message.to" src="{{current.avatar||default_avatar}}" alt="">
-                    <img ng-if="user.username==message.from" src="{{user.avatar||default_avatar}}" alt="">
+                    <img ng-if="user.username==message.to" ng-src="{{current.avatar||default_avatar}}" alt="">
+                    <img ng-if="user.username==message.from" ng-src="{{user.avatar||default_avatar}}" alt="">
                 </div>
                 <div class="content">{{message.content}}</div>
                 <div class="time">{{message.time | date :'HH:mm'}}</div>
