@@ -1,0 +1,29 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "This is a chat server demo!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hao8816/chat.git"
+  },
+  "keywords": [
+    "chat",
+    "socket.io",
+    "angularjs"
+  ],
+  "author": "Vaster Chen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hao8816/chat/issues"
+  },
+  "homepage": "https://github.com/Hao8816/chat#readme",
+  "devDependencies": {
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
+  }
+}
