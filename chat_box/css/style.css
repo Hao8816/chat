@@ -131,6 +131,9 @@ body{
     padding: 0px;
     list-style: none;
 }
+.contact-item-link{
+    text-decoration: none;
+}
 
 .contact-item{
     position: relative;
@@ -138,6 +141,7 @@ body{
     border-bottom: 1px solid #ebf6fb;
     border-left: 3px solid #fff;
     cursor: pointer;
+    position: relative;
 }
 
 .contact-item .avatar-wrapper{
@@ -170,9 +174,14 @@ body{
     float: right;
     margin: 8px 0px;
 }
-.contact-item.active{
-    background-color: #EFF4F8;
-    border-left: 3px solid #3D98D1;
+.contact-item.active::before{
+    position: absolute;
+    left: -3px;
+    top: 0px;
+    width: 3px;
+    background-color: #3D98D1;
+    content: '';
+    height: 100%;
 }
 .search-wrapper{
     border-bottom: 1px solid #ebf6fb;
@@ -395,6 +404,7 @@ body{
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+    text-decoration: none;
 }
 .btn:hover{
     background-color: #0ba360;

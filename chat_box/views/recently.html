@@ -2,17 +2,19 @@
     <div class="contact-list" style="width: 260px;border-right: 1px solid #ddd;height: 600px">
         <div class="title-wrapper">最近聊天</div>
         <ul class="contact-items">
-            <li class="contact-item {{contact_index==$index?'active':''}}" ng-click="chatWith(this)" ng-repeat="contact in contacts">
-                <div class="avatar-wrapper">
-                    <img class="image" ng-src="{{contact.avatar||default_avatar}}" alt=""/>
-                </div>
-                <div>
-                    <div class="name">{{contact.username}}</div>
-                    <div>
-                        <span class="message">{{contact.message}}</span>
-                        <span class="time">{{contact.time | date:'HH:mm'}}</span>
+            <li class="contact-item {{selected_uid==contact.uid?'active':''}}" ng-repeat="contact in contacts">
+                <a class="contact-item-link" href="#/recently/{{contact.uid}}">
+                    <div class="avatar-wrapper">
+                        <img class="image" ng-src="{{contact.avatar||default_avatar}}" alt=""/>
                     </div>
-                </div>
+                    <div>
+                        <div class="name">{{contact.username}}</div>
+                        <div>
+                            <span class="message">{{contact.message}}</span>
+                            <span class="time">{{contact.time | date:'HH:mm'}}</span>
+                        </div>
+                    </div>
+                </a>
             </li>
         </ul>
     </div>
@@ -21,13 +23,13 @@
     <div style="background-color: #EFF4F8;height: 600px;">
         <div class="message-title">
             <img class="image" ng-src="{{current.avatar||default_avatar}}" alt=""/>
-            <div class="name">{{current.username}}</div>
+            <div class="name" ng-cloak>{{current.username}}</div>
         </div>
         <div scroll-glue class="message-content" style="height: 490px;overflow-y: scroll">
-            <div class="message-item message-{{user.username==message.to?'left':'right'}}" ng-repeat="message in message_list">
+            <div class="message-item message-{{user.uid==message.to?'left':'right'}}" ng-repeat="message in message_list">
                 <div class="image">
-                    <img ng-if="user.username==message.to" ng-src="{{current.avatar||default_avatar}}" alt="">
-                    <img ng-if="user.username==message.from" ng-src="{{user.avatar||default_avatar}}" alt="">
+                    <img ng-if="user.uid==message.to" ng-src="{{current.avatar||default_avatar}}" alt="">
+                    <img ng-if="user.uid==message.from" ng-src="{{user.avatar||default_avatar}}" alt="">
                 </div>
                 <div class="content">{{message.content}}</div>
                 <div class="time">{{message.time | date :'HH:mm'}}</div>

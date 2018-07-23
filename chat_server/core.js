@@ -11,9 +11,12 @@ io.on('connection', function(client){
     // 处理用户登录消息
     client.on(MS.LOGIN, function(data){
         var username = data['username'];
-        var uid = SHA1(username);
-        SOCKETS[uid] = client.id;
-        MS.USER_LOGIN(client.id, data);
+        MS.USER_LOGIN(client.id, data, function(user){
+            if(user){
+                SOCKETS[user.uid] = client.id;
+            }
+        });
+        console.log(SOCKETS);
         client.emit(MS.LOGIN,{'status': 'OK'});
     });
     client.on(MS.LOGIN_RES, function(data){
@@ -95,7 +98,7 @@ io.on('connection', function(client){
     client.on(MS.CHAT_MESSAGE, function(data){
         // 消息转发
         console.log(data);
-        var uid = SHA1(data['to']);
+        var uid = data['to'];
         try {
             var socket_id = SOCKETS[uid];
             console.log('消息传递id',socket_id,SOCKETS);

@@ -33,7 +33,7 @@ var MESSAGES = {
 
 // 登录消息  LOGIN
 // 登录响应  LOGIN_RES
-MESSAGES['USER_LOGIN'] = function(sid, data){
+MESSAGES['USER_LOGIN'] = function(sid, data, callback){
     // 查询用户信息是不是正确
     var username = data['username'];
     var password = data['password'];
@@ -43,6 +43,7 @@ MESSAGES['USER_LOGIN'] = function(sid, data){
             result['status'] = 'ERROR';
             result['info'] = err;
             socket.emit(MESSAGES.LOGIN_RES,result);
+            callback(null);
             return;
         }
         // 处理用户信息
@@ -50,9 +51,11 @@ MESSAGES['USER_LOGIN'] = function(sid, data){
         if (res){
             result['status'] = 'OK';
             result['user'] = res;
+            callback(res);
         }else{
             result['status'] = 'ERROR';
             result['info'] = '用户名或者密码错误';
+            callback(null);
         }
         socket.emit(MESSAGES.LOGIN_RES,result);
     });

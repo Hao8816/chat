@@ -21,7 +21,7 @@ var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(fu
                     var user = data['user'];
                     $rootScope.user = user;
                     localStorage.setItem('USER',JSON.stringify(user));
-                    $location.path('/recently/')
+                    //$location.path('/recently/-1/')
                 }else{
                     alert(data['info']);
                 }
@@ -37,7 +37,7 @@ var app_router = angular.module( 'chat' , ['ngRoute','luegg.directives']).run(fu
 // 配置页面
 app_router.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
-        when('/recently/', {
+        when('/recently/:id/', {
             templateUrl: 'views/recently.html',
             controller: 'recentlyPageController'
         }).
@@ -58,15 +58,24 @@ app_router.config(['$routeProvider', function ($routeProvider) {
             controller: 'registerPageController'
         }).
 
-        otherwise({redirectTo: '/recently/'});
+        otherwise({redirectTo: '/recently/-1/'});
 }]);
 
 app_router.factory('socket', function ($rootScope) {
-    var socket = io('http://www.tihub.cn:3000');
-    //var socket = io('http://127.0.0.1:3000');
+    //var socket = io('http://www.tihub.cn:3000');
+    var socket = io('http://127.0.0.1:3000');
     return {
+        info : socket.listeners,
         on: function (eventName, callback) {
             socket.on(eventName, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+        off: function (eventName, callback) {
+            socket.off(eventName, function () {
                 var args = arguments;
                 $rootScope.$apply(function () {
                     callback.apply(socket, args);
@@ -123,24 +132,90 @@ app_router.directive('ngEnter', function () {
 
 angular.module('chat').controller(
     'recentlyPageController',
-    function recentlyPageController($scope, $rootScope, $http, socket) {
+    function recentlyPageController($scope, $rootScope, $routeParams, $http, socket, $cacheFactory) {
+        var chat_id = $routeParams.id;
         $rootScope.link_index = 1;
-        $scope.contact_index = 2;
-
-        $scope.message_list = [];
+        $scope.selected_uid = chat_id;
         var cache_user = localStorage.getItem('USER');
-        var user = JSON.parse(cache_user)
+        var user = JSON.parse(cache_user);
 
-        socket.emit('recently_list',{'uid':user.uid});
+        // 消息存储
+        $scope.cacheMessages = function (key, data) {
+            var message_uid = data[key];
+            // 消息缓存,放到前端消息队列中
+            var message_cache = $cacheFactory.get('MESSAGES_CACHE') || $cacheFactory('MESSAGES_CACHE');
+            var message_list = message_cache.get(message_uid) || [];
+            message_list.push(data);
+            message_cache.put(message_uid, message_list);
+        };
+
+        // 获取对用用户的消息
+        $scope.getCachedMessages = function(uid){
+            // 消息缓存
+            var message_cache = $cacheFactory.get('MESSAGES_CACHE');
+            if(message_cache){
+                var message_list = message_cache.get(uid) || [];
+                // 消息去重复
+
+                $scope.message_list = message_list;
+            }
+        };
+
+        // 获取缓存中的联系人列表
+        var cache_contacts = $cacheFactory.get('CONTACTS_CACHE');
+        if (cache_contacts){
+            // 查询缓存中的时间
+            var update_time = cache_contacts.get('update_time');
+            var now_time = new Date();
+            if (now_time.getTime()-update_time.getTime() < 60*1000){
+                var match_contact = false;
+                $scope.contacts = cache_contacts.get('contacts');
+                $scope.contacts.forEach(function(item){
+                    if (item['uid']==chat_id){
+                        $scope.current = item;
+                        match_contact = true;
+                    }
+                });
+                // 查询消息
+                if (!match_contact && $scope.contacts.length>0){
+                    $scope.current = $scope.contacts[0];
+                }
+                $scope.getCachedMessages($scope.current.uid);
+            }else{
+                // 获取更新
+                socket.emit('recently_list',{'uid':user.uid});
+            }
+        }else{
+            // 获取更新
+            socket.emit('recently_list',{'uid':user.uid});
+        }
+
         socket.on('recently_list', function(data){
             console.log("发送回去最近聊天列表...");
         });
-        socket.on('recently_list_response', function(data){
-            console.log("获取z最近聊天列表成功",data);
+        var recentlyList = function(data){
             var contacts = data['recent_list'];
             $scope.contacts = contacts;
-            $scope.current = contacts[0];
-        });
+            var update_time = new Date();
+            // 定义缓存
+            var cache = $cacheFactory.get('CONTACTS_CACHE') || $cacheFactory('CONTACTS_CACHE');
+            cache.put('update_time', update_time);
+            cache.put('contacts', contacts);
+
+            var match_contact = false;
+            contacts.forEach(function(item){
+                if (item['uid']==chat_id){
+                    $scope.current = item;
+                    match_contact = true;
+                }
+            });
+            if (!match_contact && contacts.length > 0){
+                // 查询消息
+                $scope.current = contacts[0];
+            }
+            $scope.getCachedMessages($scope.current.uid);
+        }
+        socket.on('recently_list_response', recentlyList);
 
         // 发送消息
         $scope.sendMessage = function(){
@@ -150,37 +225,52 @@ angular.module('chat').controller(
             }
             // 将消息显示在消息列表中
             var msg = {
-                from : $rootScope.user.username,
-                to : $scope.current.username,
+                from : $rootScope.user.uid,
+                to : $scope.current.uid,
                 content : message,
                 time : new Date().getTime()
             };
+            // 发送的消息
+            console.log('发送的消息',msg);
             socket.emit('chat_message', msg);
-            $scope.message_list.push(msg);
+
+            // 存储消息
+            $scope.cacheMessages('to',msg);
+            // 查询消息
+            $scope.getCachedMessages($scope.current.uid);
             $scope.message = '';
         };
-        socket.on('chat_message', function(data){
+
+        var charMessage = function (data) {
             console.log("接受到聊天消息",data);
-            // 解析聊天消息
-            var msg = data;
-            $scope.message_list.push(msg);
-        });
+            // 存储消息
+            var msg = {
+                from : data['from'],
+                to : data['to'],
+                content : data['content'],
+                time : data['time']
+            };
 
+            $scope.cacheMessages('from',data);
 
-        $scope.chatWith = function(obj){
-            $scope.contact_index = obj.$index;
-
-            // 当前选中的用户
-            $scope.current = obj.contact;
-
-            // 获取当前聊天用户的消息列表
-            $scope.getHistoryMessage($rootScope.uid,$scope.current.uid);
-
+            // 查询消息
+            $scope.getCachedMessages($scope.current.uid);
         };
+        socket.on('chat_message', charMessage);
+
+        //$scope.chatWith = function(obj){
+        //    $scope.contacts.forEach(function(item){
+        //        if (item['uid']==chat_id){
+        //            $scope.current = item;
+        //        }
+        //    });
+        //    // 获取当前聊天用户的消息列表
+        //    //$scope.getHistoryMessage($rootScope.uid,$scope.current.uid);
+        //};
 
         $scope.getHistoryMessage = function(uid_1,uid_2){
             socket.emit('message_list',{'uid_1':uid_1,'uid_2':uid_2});
-        }
+        };
 
         socket.on('message_list_response', function(data){
             console.log("历史消息列表",data);
@@ -197,10 +287,9 @@ angular.module('chat').controller(
     'contactsPageController',
     function contactsPageController($scope, $rootScope, $http, socket) {
         $rootScope.link_index = 2;
-        $scope.contact_index = 2;
 
         var cache_user = localStorage.getItem('USER');
-        var user = JSON.parse(cache_user)
+        var user = JSON.parse(cache_user);
 
         socket.emit('contact_list',{'uid':user.uid});
         socket.on('contact_list', function(data){
@@ -215,8 +304,6 @@ angular.module('chat').controller(
 
 
         $scope.chatWith = function(obj){
-            $scope.contact_index = obj.$index;
-
             // 当前选中的用户
             $scope.current = obj.contact;
         };
@@ -316,3 +403,19 @@ angular.module('chat').controller(
         });
     }
 );
+
+
+// 定义缓存相关的
+app_router.factory('$cache', ['$window', function ($window) {
+    return {        //存储单个属性
+        get: function (key, defaultValue) {
+            return $window.localStorage[key] || defaultValue;
+        },        //存储对象，以JSON格式存储
+        put: function (key, value) {
+            $window.localStorage[key] = JSON.stringify(value);//将对象以字符串保存
+        },        //读取对象
+        getObject: function (key) {
+            return JSON.parse($window.localStorage[key] || '{}');//获取字符串并解析成对象
+        }
+    }
+}]);

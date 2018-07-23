@@ -33,6 +33,9 @@
             <div class="details-item" ng-cloak><span>注册时间：{{current.time | date:'yyyy-MM-dd'}}</span></div>
             <div class="details-item" ng-cloak><span>个人说明：{{current.desc}}</span></div>
         </div>
+        <div style="padding:10px 0px;">
+            <a class="btn" href="#/recently/{{current.uid}}">发消息</a>
+        </div>
     </div>
 </div>
 <div class="message-wrapper" style="flex: 1">
