@@ -26,7 +26,7 @@
             <div class="name" ng-cloak>{{current.username}}</div>
         </div>
         <div scroll-glue class="message-content" style="height: 490px;overflow-y: scroll">
-            <div class="message-item message-{{user.uid==message.to?'left':'right'}}" ng-repeat="message in message_list">
+            <div class="message-item message-{{user.uid==message.to?'left':'right'}}" ng-repeat="message in message_list track by $index">
                 <div class="image">
                     <img ng-if="user.uid==message.to" ng-src="{{current.avatar||default_avatar}}" alt="">
                     <img ng-if="user.uid==message.from" ng-src="{{user.avatar||default_avatar}}" alt="">

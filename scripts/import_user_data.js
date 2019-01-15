@@ -25,7 +25,7 @@ var contacts = [
         'sex' : '女'
     },{
         'name':'Jack',
-        'avatar':'http://img.cnjiayu.net/3211573049-3310678237-21-0.jpg',
+        'avatar':'http://img2.imgtn.bdimg.com/it/u=1840907720,1671359448&fm=26&gp=0.jpg',
         'message':'Jack is a good boy.',
         'time':'09:15',
         'uid' : '15',
