@@ -8,6 +8,12 @@ var SOCKETS = {};
 io.on('connection', function(client){
     console.log('客户端连接成功',client.id);
 
+    client.on('image', function(data){
+
+      client.broadcast.emit('image-data', data);
+    })
+    
+    client.emit('message',{'status': 'OK'});
     // 处理用户登录消息
     client.on(MS.LOGIN, function(data){
         var username = data['username'];
