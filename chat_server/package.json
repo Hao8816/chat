@@ -10,13 +10,14 @@
     "doc": "docs"
   },
   "dependencies": {
-    "binary": "^0.3.0",
-    "log4js": "^0.6.24",
-    "mysql": "~2.6.0",
-    "socket.io": "~1.7.0",
     "async": "~2.1.4",
-    "sha1": "~1.1.0",
+    "binary": "^0.3.0",
+    "google-protobuf": "^3.7.0",
+    "log4js": "^0.6.24",
     "mongoose": "~4.8.6",
+    "mysql": "~2.6.0",
+    "sha1": "~1.1.0",
+    "socket.io": "~1.7.0",
     "socket.io-client": "~1.7.3"
   },
   "author": "Vaster Chen",

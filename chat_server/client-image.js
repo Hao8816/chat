@@ -1,6 +1,7 @@
 
 var socket = require('socket.io-client')('http://127.0.0.1:3000');
 var fs = require('fs')
+const proto = require('./message_pb.js')
 
 
 var fs = require("fs")
@@ -18,7 +19,7 @@ function readDirSync(path) {
             readDirSync(path + "/" + ele);
         } else {
             console.log("file: " + ele)
-            if (ele.endsWith('.jpg')) {
+            if (ele.endsWith('.jpg') || ele.endsWith('.png')) {
                 imgs.push(ele)
             }
         }
@@ -40,8 +41,11 @@ socket.on('connect', function(){
         }
         const img = imgs.pop()
         const data = fs.readFileSync('./imgs/' + img)
-        console.log('send image data', data)
-        socket.emit('image', data)
+        console.log('send image data', typeof data)
+        const message = new proto.ImageData()
+        //message.setData(data)
+        message.setName(img)
+        socket.emit('image', message.serializeBinary())
         
         setTimeout(() => {
             sendImg()
